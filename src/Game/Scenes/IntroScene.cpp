@@ -10,8 +10,8 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/OpenGL.hpp>
 
-#include "IntroScene.h"
-#include "GameScene.h"
+#include "introscene.h"
+#include "gamescene.h"
 
 #include "../GameObjects/DebugView/debugview.h"
 #include "../../GameEngine/Scene.h"

@@ -9,7 +9,7 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/OpenGL.hpp>
 
-#include "GameScene.h"
+#include "gamescene.h"
 
 #include "../../GameEngine/Scene.h"
 #include "../GameObjects/Player/player.h"
