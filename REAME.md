@@ -12,7 +12,7 @@ You'll need
 Run the following in the base directory to compile and run.
 
 ````
-$ git clone --recurse-submodules 
+$ git clone git@github.com:frklan/GameEngine.git --recurse-submodules 
 $ cd GameEngine
 $ make
 $ ./ge
