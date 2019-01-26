@@ -4,6 +4,7 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}",
+                "${workspaceFolder}/src/lib/",
                 "/Users/fredrik/bin/clang+llvm-7.0.0-x86_64-apple-darwin/include/c++/v1/",
                 "/usr/local/include",
                 "/usr/include"

@@ -1,0 +1,6 @@
+[submodule "src/lib/imgui"]
+	path = src/lib/imgui
+	url = https://github.com/ocornut/imgui.git
+[submodule "src/lib/imgui-sfml"]
+	path = src/lib/imgui-sfml
+	url = git@github.com:frklan/imgui-sfml.git

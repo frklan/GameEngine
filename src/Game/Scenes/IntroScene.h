@@ -11,9 +11,13 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/OpenGL.hpp>
 
+#include <imgui/imgui.h>
+#include <imgui-sfml/imgui-SFML.h>
+
 #include "../../GameEngine/Scene.h"
 #include "../../GameEngine/ResourceManager.h"
 #include "../../GameEngine/GameEngine.h"
+
 
 class Intro : public Scene {
   public:
@@ -25,8 +29,12 @@ class Intro : public Scene {
     void onActivate() override;
     void onDeactivate() override;
 
+    ImFont* getImFont() const;
+
   private:
     sf::Text text;
     sf::Font f;
     sf::Time lastUpdate = sf::Time::Zero;
+
+    ImFont* imFont;
 };

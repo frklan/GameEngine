@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <exception>
 #include <unordered_map>
+#include <thread>
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
@@ -20,7 +21,7 @@
 using namespace std;
 
 GameEngine::GameEngine() : 
-gameWindow(sf::VideoMode(WIDTH, HEIGHT), "<--- GameEngine --->"),
+gameWindow{sf::VideoMode(WIDTH, HEIGHT), "<--- GameEngine --->"},
 frameLag(sf::Time::Zero),
 TPS(20),
 timePerTick(sf::seconds(1.0f / TPS))
@@ -155,6 +156,10 @@ const std::chrono::milliseconds GameEngine::getFrameLag() const {
 
 const sf::Vector2u GameEngine::getWindowSize() const {
   return gameWindow.getSize();
+}
+
+sf::RenderWindow& GameEngine::getWindow() {
+  return gameWindow;
 }
 
 const GlInfo GameEngine::getGlInfo() {

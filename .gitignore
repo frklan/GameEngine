@@ -19,6 +19,9 @@ ge*
 *.dylib
 *.dll
 
+# ImGui runtime config
+imgui.ini
+
 # Fortran module files
 *.mod
 *.smod

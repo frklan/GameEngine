@@ -50,6 +50,7 @@ class GameEngine final {
     const std::chrono::milliseconds getFrameLag() const;
 
     const sf::Vector2u getWindowSize() const;
+    sf::RenderWindow& getWindow();
 
     const GlInfo getGlInfo();
     const std::vector<sf::VideoMode>& getFullscreenVideoModes();
