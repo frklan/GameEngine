@@ -1,6 +1,6 @@
 # GameEngine
 
-An attemnt to make a game engine. Mostly for fun and to learn how a game enigne works. Will most probably chrash, burn and destroy your house, should NOT be used in production code ;)
+An attemnt to make a game engine. Mostly for fun and to learn how a game engine works. Will most probably crash and destroy your house, should NOT be used in production code ;)
 
 ## Compiling
 
