@@ -17,6 +17,7 @@
 #include "gamescene.h"
 
 #include "../GameObjects/Gui/gui.h"
+#include "../GameObjects/IntroGraphics/intrographics.h"
 #include "../GameObjects/DebugView/debugview.h"
 #include "../../GameEngine/Scene.h"
 #include "../../GameEngine/ResourceManager.h"
@@ -28,6 +29,7 @@ Intro::Intro(GameEngine& engine) : Scene(engine) {
 
   addGameObject(std::make_unique<Debugview>(*this, 0));
   addGameObject(std::make_unique<Gui>(*this, 10));
+  addGameObject(std::make_unique<IntroGraphics>(*this, 1000));
 }
 
 Intro::~Intro() { 
@@ -37,7 +39,7 @@ Intro::~Intro() {
 void Intro::onActivate() { 
   Scene::onActivate();
 
-  gameEngine.setFramerateLimit(30);
+  gameEngine.setFramerateLimit(60);
   std::clog << "Intro::onActivate()\n";
 
   auto& window{getGameEngine().getWindow()};
