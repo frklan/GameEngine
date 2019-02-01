@@ -13,6 +13,7 @@
 
 #include "../../GameEngine/Scene.h"
 #include "../GameObjects/Player/player.h"
+#include "../GameObjects/GameOfLife/gameoflife.h"
 #include "../GameObjects/DebugView/debugview.h"
 
 GameScene::GameScene(GameEngine& engine) : Scene(engine) { 
@@ -20,6 +21,7 @@ GameScene::GameScene(GameEngine& engine) : Scene(engine) {
   
   this->addGameObject(std::make_unique<Player>(*this, 50, 0));
   this->addGameObject(std::make_unique<Debugview>(*this, 0));
+  this->addGameObject(std::make_unique<GameOfLife>(*this, 10));
 }
 
 GameScene::~GameScene() { 

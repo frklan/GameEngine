@@ -4,6 +4,8 @@ src = $(wildcard src/Game/*.cpp) \
 	$(wildcard src/Game/GameObjects/Player/*cpp) \
 	$(wildcard src/Game/GameObjects/DebugView/*cpp) \
 	$(wildcard src/Game/GameObjects/Gui/*cpp) \
+	$(wildcard src/Game/GameObjects/IntroGraphics/*cpp) \
+	$(wildcard src/Game/GameObjects/GameOfLife/*cpp) \
 	$(wildcard src/Game/Scenes/*cpp) \
 	$(wildcard src/GameEngine/*.cpp) \
 	$(wildcard src/lib/imgui/*.cpp) \
