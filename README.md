@@ -8,15 +8,16 @@ You'll need
 
 - A C++17 compatible clang++ compiler
 - SFML / OpenGL
+- ImGui / ImGui-SFML
 
-Run the following in the base directory to compile and run.
+Run the following to clone, compile and run.
 
-````
+````bash
 $ git clone git@github.com:frklan/GameEngine.git --recurse-submodules 
 $ cd GameEngine
 $ make
 $ ./ge
-```` 
+````
 
 ## Contributing
 
