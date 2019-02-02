@@ -36,15 +36,29 @@ class GameOfLife : public GameObject {
   private:
     static const uint16_t HEGHT = 108;
     static const uint16_t WIDTH = 192;
-    static const uint8_t CELLSIZE = 10;
+    static const uint8_t CELLSIZE = 30;
+    const sf::Color gridColor{63, 96, 118, 255};
+    const sf::Color deadCellColor{8, 3, 0, 255};
+    const sf::Color livingCellColor{126, 192, 236, 255};
+    uint64_t generation = 0;
+
 
     std::array<CellState, (GameOfLife::HEGHT * GameOfLife::WIDTH)> cells;
     std::array<sf::Vertex, (GameOfLife::HEGHT * GameOfLife::WIDTH * 4)> vertexs;   
-    sf::Clock gameSpeed;
+    std::vector<sf::Vertex> grid;
+    sf::Vector2u windowSize;
     std::mt19937 rng;
+    sf::Clock gameSpeed;
     
+
     int getRandom(int min, int max);
     uint32_t rowAndColToIndex(uint16_t x, uint16_t y);
     void forEachCell(std::function<void(uint16_t, uint16_t)> f);
     uint32_t getAliveNeighbors(uint16_t x, uint16_t y);
+    void generateRandomCellStructure();
+    void generateGrid();
+    std::pair<uint16_t, uint16_t> getCellCount();
+
+    
 };
+
