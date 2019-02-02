@@ -28,9 +28,12 @@ class IntroGraphics : public GameObject {
     
 
   private:
+    void createMovingGraphics();
+    void createBackground();
     sf::Color hsvToRgb(long long hue, float sat, float val);
+
     sf::Time lastUpdate = sf::Time::Zero;
-    sf:: Vector2f pos{ 500.f, 500.f};
+    sf::Vector2f pos{ 500.f, 500.f};
     sf::Vector2u windowSize;
     
     std::array<sf::Vertex, 251> vs;

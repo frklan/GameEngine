@@ -12,17 +12,13 @@
 
 #include "intrographics.h"
 
-IntroGraphics::IntroGraphics(const Scene& scene, uint8_t zOrder) : GameObject(scene, zOrder) {
-  windowSize.x = getScene().getGameEngine().getWindowSize().x;
-  windowSize.y = getScene().getGameEngine().getWindowSize().y;
-
-  for(auto i = 0; i < vs.size(); i++){
-    vs[i] = sf::Vertex{{float((float(windowSize.x) / (float(vs.size()) - 1.f) * i)), 100}, sf::Color::Blue};    
-  }
-  quad[0] = sf::Vertex{{0, 0}, sf::Color::Blue};
-  quad[1] = sf::Vertex{{float(windowSize.x), 0}, sf::Color::Blue};
-  quad[2] = sf::Vertex{{float(windowSize.x), float(windowSize.y)}, sf::Color::Blue};
-  quad[3] = sf::Vertex{{0, float(windowSize.y)}, sf::Color::Blue};
+IntroGraphics::IntroGraphics(const Scene& scene, uint8_t zOrder) : 
+GameObject(scene, zOrder),
+windowSize(getScene().getGameEngine().getWindowSize())
+ {
+  
+  createMovingGraphics();
+  createBackground();
   vertexClock.restart();
 }
 
@@ -54,14 +50,23 @@ void IntroGraphics::render(sf::RenderTarget& target, sf::Time gameTime) {
 
 void IntroGraphics::handleEvent(const sf::Event& e) {
   if(e.type == sf::Event::Resized) {
-    windowSize.x = e.size.width;
-    windowSize.y = e.size.height;
-
-    quad[0] = sf::Vertex{{0, 0}, sf::Color::Blue};
-    quad[1] = sf::Vertex{{float(windowSize.x), 0}, sf::Color::Blue};
-    quad[2] = sf::Vertex{{float(windowSize.x), float(windowSize.y)}, sf::Color::Blue};
-    quad[3] = sf::Vertex{{0, float(windowSize.y)}, sf::Color::Blue};
+    windowSize = getScene().getGameEngine().getWindowSize();
+    createMovingGraphics();
+    createBackground();
   }
+}
+
+void IntroGraphics::createMovingGraphics() {
+  for(auto i = 0; i < vs.size(); i++){
+    vs[i] = sf::Vertex{{float((float(windowSize.x) / (float(vs.size()) - 1.f) * i)), 100}, sf::Color::Blue};    
+  }
+}
+
+void IntroGraphics::createBackground() {
+  quad[0] = sf::Vertex{{0, 0}, sf::Color::Blue};
+  quad[1] = sf::Vertex{{float(windowSize.x), 0}, sf::Color::Blue};
+  quad[2] = sf::Vertex{{float(windowSize.x), float(windowSize.y)}, sf::Color::Blue};
+  quad[3] = sf::Vertex{{0, float(windowSize.y)}, sf::Color::Blue};
 }
 
 sf::Color IntroGraphics::hsvToRgb(long long hue, float sat, float val) {
