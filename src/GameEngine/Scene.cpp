@@ -36,7 +36,7 @@ void Scene::handleEvent(sf::Event& e) {
 
 void Scene::render(sf::RenderTarget& rt, sf::Time gameTime) {
   for(auto go = gameObjects.rbegin(); go != gameObjects.rend(); go++) {
-    go->second.get()->render(rt, gameTime);
+    go->second->render(rt, gameTime);
   }
 }
 
