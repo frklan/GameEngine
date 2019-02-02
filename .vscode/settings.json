@@ -60,7 +60,12 @@
     "system_error": "cpp",
     "tuple": "cpp",
     "*.tcc": "cpp",
-    "clocale": "cpp"
+    "clocale": "cpp",
+    "thread": "cpp",
+    "__errc": "cpp",
+    "__node_handle": "cpp",
+    "optional": "cpp",
+    "set": "cpp"
   },
   "C_Cpp.default.systemIncludePath": ["/Users/fredrik/bin/clang+llvm-7.0.0-x86_64-apple-darwin/include/c++/v1/"]
 }
