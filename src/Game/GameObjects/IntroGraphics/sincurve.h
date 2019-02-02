@@ -15,14 +15,26 @@
 #include "../../../GameEngine/ResourceManager.h"
 #include "../../../GameEngine/GameObject.h"
 
-class IntroGraphics : public GameObject {
+class SinCurve : public GameObject {
   public:
-    IntroGraphics() = delete;
-    IntroGraphics(const Scene& scene, uint8_t zOrder);
+    SinCurve() = delete;
+    SinCurve(const Scene& scene, uint8_t zOrder, uint16_t xOffset = 0, float yOffset = 1.0);
     
-    virtual ~IntroGraphics() = default;
+    virtual ~SinCurve() = default;
     
     virtual void update(const sf::Time gameTime) override;
     virtual void render(sf::RenderTarget& target, sf::Time gameTime) override;
     virtual void handleEvent(const sf::Event& e) override;
+    
+  private:
+    void createCurve();
+    sf::Color hsvToRgb(long long hue, float sat, float val);
+    uint16_t curveOffsetX;
+    float curveOffsetY;
+    sf::Time lastUpdate = sf::Time::Zero;
+    sf::Vector2f pos{ 500.f, 500.f};
+    sf::Vector2u windowSize;
+    
+    std::array<sf::Vertex, 251> curve;
+    sf::Clock vertexClock;
 };

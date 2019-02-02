@@ -15,14 +15,24 @@
 #include "../../../GameEngine/ResourceManager.h"
 #include "../../../GameEngine/GameObject.h"
 
-class IntroGraphics : public GameObject {
+class BackgroundQuad : public GameObject {
   public:
-    IntroGraphics() = delete;
-    IntroGraphics(const Scene& scene, uint8_t zOrder);
+    BackgroundQuad() = delete;
+    BackgroundQuad(const Scene& scene, uint8_t zOrder);
     
-    virtual ~IntroGraphics() = default;
+    virtual ~BackgroundQuad() = default;
     
     virtual void update(const sf::Time gameTime) override;
     virtual void render(sf::RenderTarget& target, sf::Time gameTime) override;
     virtual void handleEvent(const sf::Event& e) override;
+    
+
+  private:
+    void createBackground();
+    sf::Color hsvToRgb(long long hue, float sat, float val);
+
+    sf::Time lastUpdate = sf::Time::Zero;
+    sf::Vector2f pos{ 500.f, 500.f};
+    sf::Vector2u windowSize;
+    std::array<sf::Vertex, 4> quad;
 };
