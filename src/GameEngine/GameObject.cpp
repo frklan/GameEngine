@@ -12,23 +12,23 @@
 #include "GameObject.h"
 
 void GameObject::addGameObject(std::unique_ptr<GameObject> go) {
-  gameObjects.push_back(std::move(go));
+  gameObjects.insert({go->getZOrder(), std::move(go)});
 }
 
 void GameObject::update(const sf::Time gameTime) {
-  for(auto go = gameObjects.rbegin(); go < gameObjects.rend(); go++) {
-      go->get()->update(gameTime);
+  for(auto go = gameObjects.rbegin(); go != gameObjects.rend(); go++) {
+      go->second->update(gameTime);
   }
 }
 
 void GameObject::handleEvent(const sf::Event& e) {
-  for(auto go = gameObjects.rbegin(); go < gameObjects.rend(); go++) {
-      go->get()->handleEvent(e);
+  for(auto go = gameObjects.rbegin(); go != gameObjects.rend(); go++) {
+      go->second->handleEvent(e);
   }
 }
 
 void GameObject::render(sf::RenderTarget& target, sf::Time gameTime) {
-  for(auto go = gameObjects.rbegin(); go < gameObjects.rend(); go++) {
-    go->get()->render(target, gameTime);
+  for(auto go = gameObjects.rbegin(); go != gameObjects.rend(); go++) {
+    go->second->render(target, gameTime);
   }
 }

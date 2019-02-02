@@ -35,6 +35,6 @@ class GameObject{
   private:
     uint8_t zOrder = 0;
     const Scene& scene;
-    std::vector<std::unique_ptr<GameObject>> gameObjects;
+    std::multimap<uint8_t, std::unique_ptr<GameObject>> gameObjects;
     
 };
