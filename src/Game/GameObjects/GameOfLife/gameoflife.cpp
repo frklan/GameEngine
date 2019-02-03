@@ -29,7 +29,6 @@ rng(std::time(nullptr))
   assert(GameOfLife::WIDTH > 3);
 
   generateRandomCellStructure();
-  generateGrid();
   gameSpeed.restart();
 }
 
@@ -76,14 +75,12 @@ void GameOfLife::update(sf::Time gameTime) {
 void GameOfLife::render(sf::RenderTarget& target, sf::Time gameTime) {
   GameObject::render(target, gameTime);
   target.draw(vertexs.data(), vertexs.size(), sf::PrimitiveType::Quads);
-  target.draw(grid.data(), grid.size(), sf::PrimitiveType::Lines);
 }
 
 void GameOfLife::handleEvent(const sf::Event& e) {
   if(e.type == sf::Event::EventType::Resized) {
     windowSize.x = getScene().getGameEngine().getWindowSize().x;
     windowSize.y = getScene().getGameEngine().getWindowSize().y;
-    generateGrid();
   }
 }
 
@@ -148,35 +145,4 @@ void GameOfLife::generateRandomCellStructure() {
       cells[i] = CellState::on;
     }
   });
-}
-
-void GameOfLife::generateGrid() {
-  grid.clear();
-
-  grid.emplace_back(sf::Vertex{sf::Vector2f{0.f, 1.f}, gridColor});
-  grid.emplace_back(sf::Vertex{sf::Vector2f{float(windowSize.x - 1), 1.f}, gridColor});
-
-  grid.emplace_back(sf::Vertex{sf::Vector2f{float(windowSize.x), 0.f}, gridColor});
-  grid.emplace_back(sf::Vertex{sf::Vector2f{float(windowSize.x), float(windowSize.y + 1)}, gridColor});
-  
-  grid.emplace_back(sf::Vertex{sf::Vector2f{float(windowSize.x), float(windowSize.y - 1)}, gridColor});
-  grid.emplace_back(sf::Vertex{sf::Vector2f{0.f, float(windowSize.y - 1)}, gridColor});
-  
-  grid.emplace_back(sf::Vertex{sf::Vector2f{1.f, float(windowSize.y + 1)}, gridColor});
-  grid.emplace_back(sf::Vertex{sf::Vector2f{1.f, 0.f}, gridColor});
-  
-  auto [numGridLinesX, numGridLinesY] = getCellCount();
-
-  for(auto i = 0; i < numGridLinesX; i++){
-    auto x = i * GameOfLife::CELLSIZE;
-    grid.emplace_back(sf::Vertex{sf::Vector2f{float(x), 0.f}, gridColor});
-    grid.emplace_back(sf::Vertex{sf::Vector2f{float(x), float(windowSize.y)}, gridColor});
-  }
-  std::clog << '\n';
-
-  for(auto i = 0; i < numGridLinesY; i++){
-    auto y = i * GameOfLife::CELLSIZE;
-    grid.emplace_back(sf::Vertex{sf::Vector2f{0.f, float(y)}, gridColor});
-    grid.emplace_back(sf::Vertex{sf::Vector2f{float(windowSize.x), float(y)}, gridColor});
-  } 
 }

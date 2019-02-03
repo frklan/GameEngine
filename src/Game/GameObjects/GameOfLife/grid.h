@@ -17,17 +17,12 @@
 #include "../../../GameEngine/ResourceManager.h"
 #include "../../../GameEngine/GameObject.h"
 
-class GameOfLife : public GameObject {
-  enum CellState {
-    off = 0,
-    on = 1,
-  };
-
+class Grid : public GameObject {
   public:
-    GameOfLife() = delete;
-    GameOfLife(const Scene& scene, uint8_t zOrder);
+    Grid() = delete;
+    Grid(const Scene& scene, uint8_t zOrder);
     
-    virtual ~GameOfLife() = default;
+    virtual ~Grid() = default;
     
     virtual void update(const sf::Time gameTime) override;
     virtual void render(sf::RenderTarget& target, sf::Time gameTime) override;
@@ -38,26 +33,14 @@ class GameOfLife : public GameObject {
     static const uint16_t WIDTH = 384;
     static const uint8_t CELLSIZE = 15;
     const sf::Color gridColor{63, 96, 118, 255};
-    const sf::Color deadCellColor{8, 3, 0, 255};
-    const sf::Color livingCellColor{126, 192, 236, 255};
-    uint64_t generation = 0;
 
-
-    std::array<CellState, (GameOfLife::HEGHT * GameOfLife::WIDTH)> cells;
-    std::array<sf::Vertex, (GameOfLife::HEGHT * GameOfLife::WIDTH * 4)> vertexs;   
+    std::vector<sf::Vertex> grid;
     sf::Vector2u windowSize;
-    std::mt19937 rng;
-    sf::Clock gameSpeed;
-    
-
-    int getRandom(int min, int max);
+   
     uint32_t rowAndColToIndex(uint16_t x, uint16_t y);
     void forEachCell(std::function<void(uint16_t, uint16_t)> f);
-    uint32_t getAliveNeighbors(uint16_t x, uint16_t y);
-    void generateRandomCellStructure();
-    
+    void generateGrid();
     std::pair<uint16_t, uint16_t> getCellCount();
-
-    
+   
 };
 
