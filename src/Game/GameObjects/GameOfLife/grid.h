@@ -17,6 +17,8 @@
 #include "../../../GameEngine/ResourceManager.h"
 #include "../../../GameEngine/GameObject.h"
 
+#include "gameoflife.h"
+
 class Grid : public GameObject {
   public:
     Grid() = delete;
@@ -29,18 +31,12 @@ class Grid : public GameObject {
     virtual void handleEvent(const sf::Event& e) override;
 
   private:
-    static const uint16_t HEGHT = 216;
-    static const uint16_t WIDTH = 384;
-    static const uint8_t CELLSIZE = 15;
-    const sf::Color gridColor{63, 96, 118, 255};
-
-    std::vector<sf::Vertex> grid;
-    sf::Vector2u windowSize;
-   
-    uint32_t rowAndColToIndex(uint16_t x, uint16_t y);
-    void forEachCell(std::function<void(uint16_t, uint16_t)> f);
     void generateGrid();
-    std::pair<uint16_t, uint16_t> getCellCount();
-   
+    
+    GameOfLife* gameOfLife;
+    const sf::Color gridColor{63, 96, 118, 255};
+    std::vector<sf::Vertex> grid;
+    sf::Vector2u windowSize; 
+    
 };
 

@@ -33,15 +33,19 @@ class GameOfLife : public GameObject {
     virtual void render(sf::RenderTarget& target, sf::Time gameTime) override;
     virtual void handleEvent(const sf::Event& e) override;
 
+    virtual const uint8_t getCellSize() const noexcept {return GameOfLife::CELLSIZE; }
+    virtual const sf::Vector2u getGameboardSize() const noexcept {return sf::Vector2u{GameOfLife::WIDTH, GameOfLife::HEGHT}; }
+    virtual const uint32_t rowAndColToIndex(uint16_t x, uint16_t y) const noexcept;
+    virtual void forEachCell(std::function<void(uint16_t, uint16_t)> f) noexcept;
+    virtual const std::pair<uint16_t, uint16_t> getCellCount() const noexcept;
+
   private:
     static const uint16_t HEGHT = 216;
     static const uint16_t WIDTH = 384;
     static const uint8_t CELLSIZE = 15;
-    const sf::Color gridColor{63, 96, 118, 255};
     const sf::Color deadCellColor{8, 3, 0, 255};
     const sf::Color livingCellColor{126, 192, 236, 255};
     uint64_t generation = 0;
-
 
     std::array<CellState, (GameOfLife::HEGHT * GameOfLife::WIDTH)> cells;
     std::array<sf::Vertex, (GameOfLife::HEGHT * GameOfLife::WIDTH * 4)> vertexs;   
@@ -49,15 +53,8 @@ class GameOfLife : public GameObject {
     std::mt19937 rng;
     sf::Clock gameSpeed;
     
-
-    int getRandom(int min, int max);
-    uint32_t rowAndColToIndex(uint16_t x, uint16_t y);
-    void forEachCell(std::function<void(uint16_t, uint16_t)> f);
-    uint32_t getAliveNeighbors(uint16_t x, uint16_t y);
+    const int getRandom(int min, int max);
+    const uint32_t getAliveNeighbors(uint16_t x, uint16_t y) const noexcept;
     void generateRandomCellStructure();
-    
-    std::pair<uint16_t, uint16_t> getCellCount();
-
-    
 };
 

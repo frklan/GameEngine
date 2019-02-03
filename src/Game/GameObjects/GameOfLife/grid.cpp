@@ -15,6 +15,7 @@
 #include <SFML/OpenGL.hpp>
 
 #include "grid.h"
+#include "gameoflife.h"
 
 #include "../../../GameEngine/Scene.h"
 #include "../../../GameEngine/ResourceManager.h"
@@ -24,8 +25,12 @@ Grid::Grid(const Scene& scene, uint8_t zOrder) :
 GameObject(scene, zOrder), 
 windowSize(getScene().getGameEngine().getWindowSize())
 { 
-  assert(Grid::HEGHT > 3);
-  assert(Grid::WIDTH > 3);
+  auto gols = scene.getGameObjects<GameOfLife>();
+  if(gols.size() == 1) {
+    gameOfLife = gols[0];
+  } else {
+    throw std::runtime_error("No GameOfLife found, did we forget to create it?");
+  }
 
   generateGrid();
 }
@@ -47,13 +52,6 @@ void Grid::handleEvent(const sf::Event& e) {
   }
 }
 
-std::pair<uint16_t, uint16_t> Grid::getCellCount() {
-  auto x = ceil(float(windowSize.x) / float(Grid::CELLSIZE));
-  auto y = ceil(float(windowSize.y) / float(Grid::CELLSIZE));
-
-  return std::make_pair<uint16_t, uint16_t>(x, y);
-}
-
 void Grid::generateGrid() {
   grid.clear();
 
@@ -69,17 +67,16 @@ void Grid::generateGrid() {
   grid.emplace_back(sf::Vertex{sf::Vector2f{1.f, float(windowSize.y + 1)}, gridColor});
   grid.emplace_back(sf::Vertex{sf::Vector2f{1.f, 0.f}, gridColor});
   
-  auto [numGridLinesX, numGridLinesY] = getCellCount();
+  auto [numGridLinesX, numGridLinesY] = gameOfLife->getCellCount();
 
   for(auto i = 0; i < numGridLinesX; i++){
-    auto x = i * Grid::CELLSIZE;
+    auto x = i * gameOfLife->getCellSize();
     grid.emplace_back(sf::Vertex{sf::Vector2f{float(x), 0.f}, gridColor});
     grid.emplace_back(sf::Vertex{sf::Vector2f{float(x), float(windowSize.y)}, gridColor});
   }
-  std::clog << '\n';
 
   for(auto i = 0; i < numGridLinesY; i++){
-    auto y = i * Grid::CELLSIZE;
+    auto y = i * gameOfLife->getCellSize();
     grid.emplace_back(sf::Vertex{sf::Vector2f{0.f, float(y)}, gridColor});
     grid.emplace_back(sf::Vertex{sf::Vector2f{float(windowSize.x), float(y)}, gridColor});
   } 

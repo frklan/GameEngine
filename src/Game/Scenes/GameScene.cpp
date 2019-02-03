@@ -22,8 +22,9 @@ GameScene::GameScene(GameEngine& engine) : Scene(engine) {
   
   this->addGameObject(std::make_unique<Player>(*this, 50, 0));
   this->addGameObject(std::make_unique<Debugview>(*this, 0));
-  this->addGameObject(std::make_unique<Grid>(*this, 1));
   this->addGameObject(std::make_unique<GameOfLife>(*this, 10));
+  this->addGameObject(std::make_unique<Grid>(*this, 1));
+  
 }
 
 GameScene::~GameScene() { 

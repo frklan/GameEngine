@@ -84,7 +84,7 @@ void GameOfLife::handleEvent(const sf::Event& e) {
   }
 }
 
-int GameOfLife::getRandom(int min, int max) {
+const int GameOfLife::getRandom(int min, int max) {
   std::uniform_int_distribution<int> dist(min, max);
   return dist(rng);
 }
@@ -93,7 +93,7 @@ int GameOfLife::getRandom(int min, int max) {
 //  1 2 3
 //  4 x 5   or   x 5
 //  6 7 8        7 8
-uint32_t GameOfLife::getAliveNeighbors(uint16_t x, uint16_t y) {
+const uint32_t GameOfLife::getAliveNeighbors(uint16_t x, uint16_t y) const noexcept {
   uint32_t alive = 0;
 
   // 1
@@ -116,18 +116,18 @@ uint32_t GameOfLife::getAliveNeighbors(uint16_t x, uint16_t y) {
   return alive;
 }
 
-uint32_t GameOfLife::rowAndColToIndex(uint16_t x, uint16_t y) {
+const uint32_t GameOfLife::rowAndColToIndex(uint16_t x, uint16_t y) const noexcept {
   return y * GameOfLife::WIDTH + x;
 }
 
-std::pair<uint16_t, uint16_t> GameOfLife::getCellCount() {
+const std::pair<uint16_t, uint16_t> GameOfLife::getCellCount() const noexcept {
   auto x = ceil(float(windowSize.x) / float(GameOfLife::CELLSIZE));
   auto y = ceil(float(windowSize.y) / float(GameOfLife::CELLSIZE));
 
   return std::make_pair<uint16_t, uint16_t>(x, y);
 }
 
-void GameOfLife::forEachCell(std::function<void(uint16_t, uint16_t)> f) {
+void GameOfLife::forEachCell(std::function<void(uint16_t, uint16_t)> f) noexcept {
   for(uint16_t y = 0; y < GameOfLife::HEGHT; y++) {
     for(uint16_t x = 0; x < GameOfLife::WIDTH; x++) {
       f(x, y);
