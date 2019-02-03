@@ -22,11 +22,11 @@ class Scene {
     virtual void onDeactivate() {};
 
     void addGameObject(std::unique_ptr<GameObject> gameObject);
-    const GameObject* getGameObject(std::string name) const;
+    //const GameObject* Scene::getGameObject(std::string name) const
+    template<typename T> std::vector<T*> getGameObjects() const;
     void deleteGameObject(std::string name);
-
+    
     const int getNumOfEntities() const;
-
     GameEngine& getGameEngine() const;
 
   protected:
@@ -35,3 +35,15 @@ class Scene {
   private:
     std::multimap<uint8_t, std::unique_ptr<GameObject>> gameObjects;
 };
+
+template<typename T> 
+std::vector<T*> Scene::getGameObjects() const {
+  std::vector<T*> objects;
+  for(auto g = gameObjects.begin(); g != gameObjects.end(); g++) {
+    T* t = dynamic_cast<T*>(g->second.get());
+    if(t != nullptr) {
+      objects.push_back(t);
+    }
+  }
+  return objects;
+}

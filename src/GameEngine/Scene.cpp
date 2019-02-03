@@ -13,10 +13,10 @@ void Scene::addGameObject(std::unique_ptr<GameObject> gameObject) {
   gameObjects.insert({gameObject->getZOrder(), std::move(gameObject)});
 }
 
-const GameObject* Scene::getGameObject(std::string name) const {
-  throw std::runtime_error("Scene::getGameObject is not implemented!");
-  return nullptr;
-}
+// const GameObject* Scene::getGameObject(std::string name) const {
+//   throw std::runtime_error("Scene::getGameObject is not implemented!");
+//   return nullptr;
+// }
 
 void Scene::deleteGameObject(std::string name) {
   throw std::runtime_error("Scene::deleteGameObject is not implemented!");
