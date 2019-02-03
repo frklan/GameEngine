@@ -15,16 +15,11 @@ obj = $(src:.cpp=.o)
 
 version = $(shell git describe --tags --always --dirty)
 
-ifndef PREFIX
-	PREFIX = /usr/local
-endif
-
-ifndef CXX
-  CXX = clang++
-endif
+PREFIX ?= /usr/local
+CXX ?= clang++
 
 LDFLAGS = -lsfml-audio -lsfml-graphics -lsfml-system -lsfml-window -framework OpenGL
-CXXFLAGS = -g -Wall -std=c++17 -Isrc/lib 
+CXXFLAGS += -g -Wall -std=c++17 -Isrc/lib 
 
 $(target): $(obj)
 	$(CXX) -o $@ $^ $(LDFLAGS) $(CXXFLAGS)
