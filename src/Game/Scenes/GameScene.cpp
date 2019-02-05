@@ -15,6 +15,7 @@
 #include "../GameObjects/Player/player.h"
 #include "../GameObjects/GameOfLife/gameoflife.h"
 #include "../GameObjects/GameOfLife/grid.h"
+#include "../GameObjects/GameOfLife/cursor.h"
 #include "../GameObjects/DebugView/debugview.h"
 
 GameScene::GameScene(GameEngine& engine) : Scene(engine) { 
@@ -24,7 +25,7 @@ GameScene::GameScene(GameEngine& engine) : Scene(engine) {
   this->addGameObject(std::make_unique<Debugview>(*this, 0));
   this->addGameObject(std::make_unique<GameOfLife>(*this, 10));
   this->addGameObject(std::make_unique<Grid>(*this, 1));
-  
+  this->addGameObject(std::make_unique<Cursor>(*this, 0));
 }
 
 GameScene::~GameScene() { 
@@ -35,8 +36,8 @@ void GameScene::handleEvent(sf::Event& e) {
   Scene::handleEvent(e);
 
   if(e.type == sf::Event::MouseButtonPressed) {
-    gameEngine.switchScene("intro");
-    gameEngine.unloadScene("game");    
+    //gameEngine.switchScene("intro");
+    //gameEngine.unloadScene("game");    
   }
 }
 

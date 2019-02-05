@@ -18,12 +18,11 @@
 #include "../../../GameEngine/GameObject.h"
 
 class GameOfLife : public GameObject {
-  enum CellState {
-    off = 0,
-    on = 1,
-  };
-
   public:
+    enum CellState {
+      off = 0,
+      on = 1,
+    };
     GameOfLife() = delete;
     GameOfLife(const Scene& scene, uint8_t zOrder);
     
@@ -38,6 +37,9 @@ class GameOfLife : public GameObject {
     virtual const uint32_t rowAndColToIndex(uint16_t x, uint16_t y) const noexcept;
     virtual void forEachCell(std::function<void(uint16_t, uint16_t)> f) noexcept;
     virtual const std::pair<uint16_t, uint16_t> getCellCount() const noexcept;
+    virtual void flipCell(sf::Vector2u);
+    virtual void setCell(sf::Vector2u, CellState);
+    virtual void  killAllCells() { cells.fill(CellState::off); };
 
   private:
     static const uint16_t HEGHT = 216;
@@ -46,6 +48,7 @@ class GameOfLife : public GameObject {
     const sf::Color deadCellColor{8, 3, 0, 255};
     const sf::Color livingCellColor{126, 192, 236, 255};
     uint64_t generation = 0;
+    bool paused = false;
 
     std::array<CellState, (GameOfLife::HEGHT * GameOfLife::WIDTH)> cells;
     std::array<sf::Vertex, (GameOfLife::HEGHT * GameOfLife::WIDTH * 4)> vertexs;   
@@ -56,5 +59,6 @@ class GameOfLife : public GameObject {
     const int getRandom(int min, int max);
     const uint32_t getAliveNeighbors(uint16_t x, uint16_t y) const noexcept;
     void generateRandomCellStructure();
+    void updateCellVertex(uint16_t x, uint16_t y, CellState& cell);
 };
 

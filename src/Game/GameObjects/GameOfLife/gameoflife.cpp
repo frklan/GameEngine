@@ -48,28 +48,35 @@ void GameOfLife::update(sf::Time gameTime) {
       // Any live cell == 2 or == 3 live neighbors lives on to the next generation.
       // Any live cell with < 2 or > 3 live neighbors dies
       // Any dead cell == 3 live neighbors becomes a live cell
-      if(cells[i] == CellState::off && numAliveNeighbors == 3 ) { 
-        newCells[i] = CellState::on;
+      if(!paused){
+        if(cells[i] == CellState::off && numAliveNeighbors == 3 ) { 
+          newCells[i] = CellState::on;
+        }
+        if(cells[i] == CellState::on && (numAliveNeighbors < 2 || numAliveNeighbors > 3)) {
+          newCells[i] = CellState::off;
+        }
       }
-      if(cells[i] == CellState::on && (numAliveNeighbors < 2 || numAliveNeighbors > 3)) {
-        newCells[i] = CellState::off;
-      }
 
-      // Calculate render verteces for this cell
-      auto topLeft = sf::Vector2f(x * GameOfLife::CELLSIZE, y * GameOfLife::CELLSIZE);
-      auto topRight = sf::Vector2f(x * GameOfLife::CELLSIZE + GameOfLife::CELLSIZE,  y * GameOfLife::CELLSIZE);
-
-      auto bottomRight = sf::Vector2f(x * GameOfLife::CELLSIZE + GameOfLife::CELLSIZE,  y * GameOfLife::CELLSIZE + GameOfLife::CELLSIZE);
-      auto bottomLeft = sf::Vector2f(x * GameOfLife::CELLSIZE, y * GameOfLife::CELLSIZE + GameOfLife::CELLSIZE);
-
-      auto cellColor = (newCells[i] == CellState::on ? livingCellColor : deadCellColor);
-      vertexs[i * 4] = sf::Vertex(topLeft, cellColor);
-      vertexs[i * 4 + 1] = sf::Vertex(topRight, cellColor);
-      vertexs[i * 4 + 2] = sf::Vertex(bottomRight, cellColor);
-      vertexs[i * 4 + 3] = sf::Vertex(bottomLeft, cellColor);
+      updateCellVertex(x, y, newCells[i]);
     });
     cells = newCells;
   }
+}
+
+void GameOfLife::updateCellVertex(uint16_t x, uint16_t y, CellState& cell) {
+  auto i = rowAndColToIndex(x, y);
+  // Calculate render verteces for this cell
+  auto topLeft = sf::Vector2f(x * GameOfLife::CELLSIZE, y * GameOfLife::CELLSIZE);
+  auto topRight = sf::Vector2f(x * GameOfLife::CELLSIZE + GameOfLife::CELLSIZE,  y * GameOfLife::CELLSIZE);
+
+  auto bottomRight = sf::Vector2f(x * GameOfLife::CELLSIZE + GameOfLife::CELLSIZE,  y * GameOfLife::CELLSIZE + GameOfLife::CELLSIZE);
+  auto bottomLeft = sf::Vector2f(x * GameOfLife::CELLSIZE, y * GameOfLife::CELLSIZE + GameOfLife::CELLSIZE);
+
+  auto cellColor = (cell == CellState::on ? livingCellColor : deadCellColor);
+  vertexs[i * 4] = sf::Vertex(topLeft, cellColor);
+  vertexs[i * 4 + 1] = sf::Vertex(topRight, cellColor);
+  vertexs[i * 4 + 2] = sf::Vertex(bottomRight, cellColor);
+  vertexs[i * 4 + 3] = sf::Vertex(bottomLeft, cellColor);
 }
 
 void GameOfLife::render(sf::RenderTarget& target, sf::Time gameTime) {
@@ -81,6 +88,11 @@ void GameOfLife::handleEvent(const sf::Event& e) {
   if(e.type == sf::Event::EventType::Resized) {
     windowSize.x = getScene().getGameEngine().getWindowSize().x;
     windowSize.y = getScene().getGameEngine().getWindowSize().y;
+  } else if(e.type ==sf::Event::EventType::KeyPressed) {
+    if(e.key.code == sf::Keyboard::P) {
+      std::clog << "P pressed!\n";
+      paused = !paused;
+    }
   }
 }
 
@@ -145,4 +157,21 @@ void GameOfLife::generateRandomCellStructure() {
       cells[i] = CellState::on;
     }
   });
+}
+
+void GameOfLife::flipCell(sf::Vector2u cellCoord) {
+  auto i = rowAndColToIndex(cellCoord.x, cellCoord.y);
+
+  if(cells[i] == CellState::on) {
+    cells[i] = CellState::off;
+  } else {
+    cells[i] = CellState::on;
+  }
+  updateCellVertex(cellCoord.x, cellCoord.y, cells[i]);
+}
+
+void GameOfLife::setCell(sf::Vector2u cellCoord, CellState state) {
+  auto i = rowAndColToIndex(cellCoord.x, cellCoord.y);
+  cells[i] = state;
+  updateCellVertex(cellCoord.x, cellCoord.y, cells[i]);
 }
