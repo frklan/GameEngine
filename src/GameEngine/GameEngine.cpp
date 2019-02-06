@@ -31,6 +31,9 @@ timePerTick(sf::seconds(1.0f / TPS))
   gameView.setCenter(sf::Vector2f(winSize.x / 2, winSize.y / 2));
   gameWindow.setView(gameView);
 
+  auto icon = getImageResource("src/Game/Resources/logo.png");
+  gameWindow.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+
   gameWindow.display();
   setVerticalSyncEnabled(false);
 
@@ -129,6 +132,10 @@ const sf::Font& GameEngine::getFontResource(const std::string& name) {
 
 const sf::Texture& GameEngine::getTextureResource(const std::string& name) {
   return textureManager.get(name);
+}
+
+const sf::Image& GameEngine::getImageResource(const std::string& name) {
+  return imageManager.get(name);
 }
 
 void GameEngine::setVerticalSyncEnabled(bool enabled) {

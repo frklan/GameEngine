@@ -40,6 +40,7 @@ class GameEngine final {
 
     const sf::Font& getFontResource(const std::string& name);
     const sf::Texture& getTextureResource(const std::string& name);
+    const sf::Image& getImageResource(const std::string& name);
     
     void setVerticalSyncEnabled(bool enabled = true);
     void setFramerateLimit(std::uint8_t fpsLimit = 60);
@@ -80,5 +81,5 @@ class GameEngine final {
 
     ResourceManager<sf::Font> fontManager;
     ResourceManager<sf::Texture> textureManager;
-    ResourceManager<sf::Image> imgageManager;
+    ResourceManager<sf::Image> imageManager;
 };
