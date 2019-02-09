@@ -16,8 +16,9 @@
 #include "../../../GameEngine/Scene.h"
 #include "../../../GameEngine/ResourceManager.h"
 #include "../../../GameEngine/GameObject.h"
+#include "../../../GameEngine/Observable.h"
 
-class GameOfLife : public GameObject {
+class GameOfLife : public GameObject, public Observable {
   public:
     enum CellState {
       off = 0,

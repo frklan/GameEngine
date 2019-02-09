@@ -92,6 +92,13 @@ void GameOfLife::handleEvent(const sf::Event& e) {
     if(e.key.code == sf::Keyboard::P) {
       std::clog << "P pressed!\n";
       paused = !paused;
+      if(paused) {
+        notify({Event::GamePause});
+      } else {
+        notify({Event::GameStart});
+      }
+    } else if(e.key.code == sf::Keyboard::Num1) {
+      notify({Event::GameOver});
     }
   }
 }
