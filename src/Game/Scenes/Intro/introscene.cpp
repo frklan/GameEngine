@@ -68,7 +68,7 @@ void Intro::onActivate() {
   auto& window{getGameEngine().getWindow()};
   ImGui::SFML::Init(window);
 
-  imFont = ImGui::GetIO().Fonts->AddFontFromFileTTF("/Users/fredrik/Source/c/cpp/GameEngine/src/Game/Resources/8-BIT_WONDER.TTF", 16);
+  imFont = ImGui::GetIO().Fonts->AddFontFromFileTTF("src/Game/Resources/8-BIT_WONDER.TTF", 16);
   ImGui::SFML::UpdateFontTexture();
 };
 
