@@ -9,9 +9,19 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/OpenGL.hpp>
 
+#include <Event.h>
+#include <GameEngine.h>
+#include <GameObject.h>
+#include <Observable.h>
+#include <Observer.h>
+#include <ResourceManager.h>
+#include <Scene.h>
+
+#include "../Game/gamescene.h"
+#include "introscene.h"
 #include "gui.h"
-#include "../../Scenes/gamescene.h"
-#include "../../Scenes/introscene.h"
+
+class GameScene;
 
 Gui::Gui(const Scene& scene, uint8_t zOrder) : GameObject(scene, zOrder) {
 };

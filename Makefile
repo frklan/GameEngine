@@ -1,13 +1,9 @@
 target = ge
 src = $(wildcard src/Game/*.cpp) \
-	$(wildcard src/Game/GameObjects/*cpp) \
-	$(wildcard src/Game/GameObjects/Player/*cpp) \
-	$(wildcard src/Game/GameObjects/DebugView/*cpp) \
-	$(wildcard src/Game/GameObjects/Gui/*cpp) \
-	$(wildcard src/Game/GameObjects/IntroGraphics/*cpp) \
-	$(wildcard src/Game/GameObjects/GameOfLife/*cpp) \
-	$(wildcard src/Game/Scenes/*cpp) \
-	$(wildcard src/GameEngine/*.cpp) \
+	$(wildcard src/GameEngine/*cpp) \
+	$(wildcard src/Game/Scenes/Common/DebugView/*cpp) \
+	$(wildcard src/Game/Scenes/Game/*cpp) \
+	$(wildcard src/Game/Scenes/Intro/*cpp) \
 	$(wildcard src/lib/imgui/*.cpp) \
 	$(wildcard src/lib/imgui-sfml/*.cpp)
 	
@@ -19,7 +15,7 @@ PREFIX ?= /usr/local
 CXX ?= clang++
 
 LDFLAGS = -lsfml-audio -lsfml-graphics -lsfml-system -lsfml-window -framework OpenGL
-CXXFLAGS += -g -Wall -std=c++17 -Isrc/lib 
+CXXFLAGS += -g -Wall -std=c++17 -Isrc/lib -Isrc/GameEngine
 
 $(target): $(obj)
 	$(CXX) -o $@ $^ $(LDFLAGS) $(CXXFLAGS)

@@ -10,9 +10,13 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/OpenGL.hpp>
 
-#include "../../GameEngine/Scene.h"
-#include "../../GameEngine/ResourceManager.h"
-#include "../GameObjects/Player/player.h"
+#include <Event.h>
+#include <GameEngine.h>
+#include <GameObject.h>
+#include <Observable.h>
+#include <Observer.h>
+#include <ResourceManager.h>
+#include <Scene.h>
 
 class GameScene : public Scene {
   public:

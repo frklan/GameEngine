@@ -10,22 +10,20 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/OpenGL.hpp>
 
+#include <Event.h>
+#include <GameEngine.h>
+#include <GameObject.h>
+#include <Observable.h>
+#include <Observer.h>
+#include <ResourceManager.h>
+#include <Scene.h>
 
-#include <imgui/imgui.h>
-#include <imgui-sfml/imgui-SFML.h>
-
-#include "../../../GameEngine/Scene.h"
-#include "../../../GameEngine/ResourceManager.h"
-#include "../../../GameEngine/GameObject.h"
-
-
-
-class Gui : public GameObject {
+class Debugview : public GameObject {
   public:
-    Gui() = delete;
-    Gui(const Scene& scene, uint8_t zOrder);
+    Debugview() = delete;
+    Debugview(const Scene& scene, uint8_t zOrder);
     
-    virtual ~Gui() = default;
+    virtual ~Debugview() = default;
     
     virtual void update(const sf::Time gameTime) override;
     virtual void render(sf::RenderTarget& target, sf::Time gameTime) override;
@@ -33,5 +31,8 @@ class Gui : public GameObject {
     
 
   private:
-    
+    bool showDebug = true;
+    sf::Text debugText;
+    sf::Text gpuInfo;
+    sf::Time lastUpdate = sf::Time::Zero;
 };

@@ -1,8 +1,14 @@
 #include <iostream>
 
-#include "../GameEngine/GameEngine.h"
-#include "Scenes/introscene.h"
-#include "Scenes/gamescene.h"
+#include <Event.h>
+#include <GameEngine.h>
+#include <GameObject.h>
+#include <Observable.h>
+#include <Observer.h>
+#include <ResourceManager.h>
+#include <Scene.h>
+
+#include "Scenes/Intro/introscene.h"
 
 int main() {
   std::clog << "<-- GameEngine - engine + demo game #1 -->\n";

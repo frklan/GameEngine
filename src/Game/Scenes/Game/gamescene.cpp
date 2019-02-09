@@ -9,20 +9,25 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/OpenGL.hpp>
 
-#include "gamescene.h"
+#include <Event.h>
+#include <GameEngine.h>
+#include <GameObject.h>
+#include <Observable.h>
+#include <Observer.h>
+#include <ResourceManager.h>
+#include <Scene.h>
 
-#include "../../GameEngine/Scene.h"
-#include "../GameObjects/Player/player.h"
-#include "../GameObjects/GameOfLife/gameoflife.h"
-#include "../GameObjects/GameOfLife/grid.h"
-#include "../GameObjects/GameOfLife/cursor.h"
-#include "../GameObjects/GameOfLife/statusdisplay.h"
-#include "../GameObjects/DebugView/debugview.h"
+#include "gameoflife.h"
+#include "grid.h"
+#include "cursor.h"
+#include "statusdisplay.h"
+#include "../Common/DebugView/debugview.h"
+
+#include "gamescene.h"
 
 GameScene::GameScene(GameEngine& engine) : Scene(engine) { 
   std::clog << "GameScene scene created!\n"; 
   
-  this->addGameObject(std::make_unique<Player>(*this, 50, 0));
   this->addGameObject(std::make_unique<Debugview>(*this, 0));
   this->addGameObject(std::make_unique<GameOfLife>(*this, 20));
   this->addGameObject(std::make_unique<Grid>(*this, 10));

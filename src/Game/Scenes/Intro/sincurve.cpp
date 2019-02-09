@@ -10,6 +10,14 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/OpenGL.hpp>
 
+#include <Event.h>
+#include <GameEngine.h>
+#include <GameObject.h>
+#include <Observable.h>
+#include <Observer.h>
+#include <ResourceManager.h>
+#include <Scene.h>
+
 #include "sincurve.h"
 
 SinCurve::SinCurve(const Scene& scene, uint8_t zOrder, uint16_t xOffset, float yOffset) : 

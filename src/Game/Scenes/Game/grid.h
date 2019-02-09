@@ -13,27 +13,34 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/OpenGL.hpp>
 
-#include "../../../GameEngine/Scene.h"
-#include "../../../GameEngine/ResourceManager.h"
-#include "../../../GameEngine/GameObject.h"
+#include <Event.h>
+#include <GameEngine.h>
+#include <GameObject.h>
+#include <Observable.h>
+#include <Observer.h>
+#include <ResourceManager.h>
+#include <Scene.h>
 
 #include "gameoflife.h"
 
-class Cursor : public GameObject {
+class Grid : public GameObject {
   public:
-    Cursor() = delete;
-    Cursor(const Scene& scene, uint8_t zOrder);
+    Grid() = delete;
+    Grid(const Scene& scene, uint8_t zOrder);
     
-    virtual ~Cursor() = default;
+    virtual ~Grid() = default;
     
     virtual void update(const sf::Time gameTime) override;
     virtual void render(sf::RenderTarget& target, sf::Time gameTime) override;
     virtual void handleEvent(const sf::Event& e) override;
 
   private:
-    sf::Vector2u windowSize;
-    std::array<sf::Vertex, 4> cursor;
+    void generateGrid();
+    
     GameOfLife* gameOfLife;
-    sf::Color cursorColor{185, 118, 93, 255};
+    const sf::Color gridColor{63, 96, 118, 255};
+    std::vector<sf::Vertex> grid;
+    sf::Vector2u windowSize; 
+    
 };
 

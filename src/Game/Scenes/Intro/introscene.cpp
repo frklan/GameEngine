@@ -13,16 +13,20 @@
 #include <imgui/imgui.h>
 #include <imgui-sfml/imgui-SFML.h>
 
-#include "introscene.h"
-#include "gamescene.h"
+#include <Event.h>
+#include <GameEngine.h>
+#include <GameObject.h>
+#include <Observable.h>
+#include <Observer.h>
+#include <ResourceManager.h>
+#include <Scene.h>
 
-#include "../GameObjects/Gui/gui.h"
-#include "../GameObjects/IntroGraphics/sincurve.h"
-#include "../GameObjects/IntroGraphics/backgroundquad.h"
-#include "../GameObjects/DebugView/debugview.h"
-#include "../../GameEngine/Scene.h"
-#include "../../GameEngine/ResourceManager.h"
-#include "../../GameEngine/GameEngine.h"
+#include "introscene.h"
+#include "gui.h"
+#include "sincurve.h"
+#include "backgroundquad.h"
+#include "../Game/gamescene.h"
+#include "../Common/DebugView/debugview.h"
 
 
 Intro::Intro(GameEngine& engine) : Scene(engine) { 

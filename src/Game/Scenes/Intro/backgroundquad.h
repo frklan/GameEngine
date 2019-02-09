@@ -11,30 +11,32 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/OpenGL.hpp>
 
-#include "../../../GameEngine/Scene.h"
-#include "../../../GameEngine/ResourceManager.h"
-#include "../../../GameEngine/GameObject.h"
+#include <Event.h>
+#include <GameEngine.h>
+#include <GameObject.h>
+#include <Observable.h>
+#include <Observer.h>
+#include <ResourceManager.h>
+#include <Scene.h>
 
-class SinCurve : public GameObject {
+class BackgroundQuad : public GameObject {
   public:
-    SinCurve() = delete;
-    SinCurve(const Scene& scene, uint8_t zOrder, uint16_t xOffset = 0, float yOffset = 1.0);
+    BackgroundQuad() = delete;
+    BackgroundQuad(const Scene& scene, uint8_t zOrder);
     
-    virtual ~SinCurve() = default;
+    virtual ~BackgroundQuad() = default;
     
     virtual void update(const sf::Time gameTime) override;
     virtual void render(sf::RenderTarget& target, sf::Time gameTime) override;
     virtual void handleEvent(const sf::Event& e) override;
     
+
   private:
-    void createCurve();
+    void createBackground();
     sf::Color hsvToRgb(long long hue, float sat, float val);
-    uint16_t curveOffsetX;
-    float curveOffsetY;
+
     sf::Time lastUpdate = sf::Time::Zero;
     sf::Vector2f pos{ 500.f, 500.f};
     sf::Vector2u windowSize;
-    
-    std::array<sf::Vertex, 251> curve;
-    sf::Clock vertexClock;
+    std::array<sf::Vertex, 4> quad;
 };

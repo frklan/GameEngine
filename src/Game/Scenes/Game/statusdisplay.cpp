@@ -14,13 +14,16 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/OpenGL.hpp>
 
-#include "statusdisplay.h"
-
-#include "../../../GameEngine/Scene.h"
-#include "../../../GameEngine/ResourceManager.h"
-#include "../../../GameEngine/GameObject.h"
+#include <Event.h>
+#include <GameEngine.h>
+#include <GameObject.h>
+#include <Observable.h>
+#include <Observer.h>
+#include <ResourceManager.h>
+#include <Scene.h>
 
 #include "gameoflife.h"
+#include "statusdisplay.h"
 
 StatusDisplay::StatusDisplay(const Scene& scene, uint8_t zOrder) : GameObject(scene) { 
   scene.getGameObjects<GameOfLife>()[0]->registerObserver(*this);

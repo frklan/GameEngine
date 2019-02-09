@@ -14,12 +14,16 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/OpenGL.hpp>
 
-#include "grid.h"
-#include "gameoflife.h"
+#include <Event.h>
+#include <GameEngine.h>
+#include <GameObject.h>
+#include <Observable.h>
+#include <Observer.h>
+#include <ResourceManager.h>
+#include <Scene.h>
 
-#include "../../../GameEngine/Scene.h"
-#include "../../../GameEngine/ResourceManager.h"
-#include "../../../GameEngine/GameObject.h"
+#include "gameoflife.h"
+#include "grid.h"
 
 Grid::Grid(const Scene& scene, uint8_t zOrder) : 
 GameObject(scene, zOrder), 
