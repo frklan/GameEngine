@@ -36,11 +36,9 @@ windowSize(getScene().getGameEngine().getWindowSize())
 }
 
 void Grid::update(sf::Time gameTime) {
-  GameObject::update(gameTime);
 }
 
 void Grid::render(sf::RenderTarget& target, sf::Time gameTime) {
-  GameObject::render(target, gameTime);
   target.draw(grid.data(), grid.size(), sf::PrimitiveType::Lines);
 }
 

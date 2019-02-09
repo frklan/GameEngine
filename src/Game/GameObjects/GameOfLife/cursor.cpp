@@ -31,12 +31,9 @@ windowSize(getScene().getGameEngine().getWindowSize())
 }
 
 void Cursor::update(sf::Time gameTime) {
-  GameObject::update(gameTime);
 }
 
 void Cursor::render(sf::RenderTarget& target, sf::Time gameTime) {
-  GameObject::render(target, gameTime);
-
   target.draw(cursor.data(), cursor.size(), sf::PrimitiveType::Quads);
 }
 

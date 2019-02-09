@@ -25,7 +25,7 @@ class Gui : public GameObject {
     Gui() = delete;
     Gui(const Scene& scene, uint8_t zOrder);
     
-    virtual ~Gui();
+    virtual ~Gui() = default;
     
     virtual void update(const sf::Time gameTime) override;
     virtual void render(sf::RenderTarget& target, sf::Time gameTime) override;

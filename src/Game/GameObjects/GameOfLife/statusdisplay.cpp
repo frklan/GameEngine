@@ -33,8 +33,6 @@ StatusDisplay::StatusDisplay(const Scene& scene, uint8_t zOrder) : GameObject(sc
 }
 
 void StatusDisplay::update(sf::Time gameTime) {
-  GameObject::update(gameTime);
-
   auto windowSize = getScene().getGameEngine().getWindowSize();
   auto textSize = pauseText.getGlobalBounds();
 
@@ -49,7 +47,6 @@ void StatusDisplay::update(sf::Time gameTime) {
 }
 
 void StatusDisplay::render(sf::RenderTarget& target, sf::Time gameTime) {
-  GameObject::render(target, gameTime);
   if(isPaused) {
     target.draw(pauseText);
   }

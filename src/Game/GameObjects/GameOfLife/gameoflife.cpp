@@ -33,8 +33,6 @@ rng(std::time(nullptr))
 }
 
 void GameOfLife::update(sf::Time gameTime) {
-  GameObject::update(gameTime);
-
   if(gameSpeed.getElapsedTime().asSeconds() > 1.f || generation == 0) {  
     gameSpeed.restart();
     generation++;
@@ -80,7 +78,6 @@ void GameOfLife::updateCellVertex(uint16_t x, uint16_t y, CellState& cell) {
 }
 
 void GameOfLife::render(sf::RenderTarget& target, sf::Time gameTime) {
-  GameObject::render(target, gameTime);
   target.draw(vertexs.data(), vertexs.size(), sf::PrimitiveType::Quads);
 }
 

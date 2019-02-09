@@ -16,8 +16,6 @@
 Gui::Gui(const Scene& scene, uint8_t zOrder) : GameObject(scene, zOrder) {
 };
 
-Gui::~Gui() {
-}
 
 void Gui::update(const sf::Time gameTime) {
 
@@ -59,6 +57,5 @@ void Gui::render(sf::RenderTarget& target, sf::Time gameTime) {
   ImGui::SFML::Render(window);
 }
 void Gui::handleEvent(const sf::Event& e) {
-  GameObject::handleEvent(e);
   ImGui::SFML::ProcessEvent(e);
 }

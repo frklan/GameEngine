@@ -25,7 +25,6 @@ Player::Player(const Scene& scene, uint8_t zOrder, float xOffset) : GameObject(s
 }
 
 void Player::update(sf::Time gameTime) {
-  GameObject::update(gameTime);
   
   auto pos = this->rectangle.getPosition();
   auto psize = this->rectangle.getSize();
@@ -51,7 +50,6 @@ void Player::update(sf::Time gameTime) {
 }
 
 void Player::render(sf::RenderTarget& target, sf::Time gameTime) {
-  GameObject::render(target, gameTime);
   target.draw(rectangle);
 }
 

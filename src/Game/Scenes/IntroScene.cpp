@@ -17,7 +17,8 @@
 #include "gamescene.h"
 
 #include "../GameObjects/Gui/gui.h"
-#include "../GameObjects/IntroGraphics/intrographics.h"
+#include "../GameObjects/IntroGraphics/sincurve.h"
+#include "../GameObjects/IntroGraphics/backgroundquad.h"
 #include "../GameObjects/DebugView/debugview.h"
 #include "../../GameEngine/Scene.h"
 #include "../../GameEngine/ResourceManager.h"
@@ -29,7 +30,25 @@ Intro::Intro(GameEngine& engine) : Scene(engine) {
 
   addGameObject(std::make_unique<Debugview>(*this, 0));
   addGameObject(std::make_unique<Gui>(*this, 10));
-  addGameObject(std::make_unique<IntroGraphics>(*this, 1000));
+  //addGameObject(std::make_unique<IntroGraphics>(*this, 1000));
+
+  addGameObject(std::make_unique<SinCurve>(*this, 100));
+  addGameObject(std::make_unique<SinCurve>(*this, 100, 1));
+  addGameObject(std::make_unique<SinCurve>(*this, 100, 2));
+  addGameObject(std::make_unique<SinCurve>(*this, 100, 0.33f));
+  addGameObject(std::make_unique<SinCurve>(*this, 100, 4));
+  addGameObject(std::make_unique<SinCurve>(*this, 100, 5));
+  addGameObject(std::make_unique<SinCurve>(*this, 100, 0.66f));
+  addGameObject(std::make_unique<SinCurve>(*this, 100, 100, 0.75f));
+  addGameObject(std::make_unique<SinCurve>(*this, 100, 110, 0.55f));
+  addGameObject(std::make_unique<SinCurve>(*this, 100, 120, 0.35f));
+  addGameObject(std::make_unique<SinCurve>(*this, 100, 130, 0.25f));
+  addGameObject(std::make_unique<SinCurve>(*this, 100, 60, 0.75f));
+  addGameObject(std::make_unique<SinCurve>(*this, 100, 170, 0.55f));
+  addGameObject(std::make_unique<SinCurve>(*this, 100, 180, 0.35f));
+  addGameObject(std::make_unique<SinCurve>(*this, 100, 290, 0.15f));
+
+  addGameObject(std::make_unique<BackgroundQuad>(*this, 1000));
 }
 
 Intro::~Intro() { 
