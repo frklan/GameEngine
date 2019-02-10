@@ -22,6 +22,7 @@
 #include <ResourceManager.h>
 #include <Scene.h>
 
+#include "gamefsm.h"
 #include "gameoflife.h"
 
 GameOfLife::GameOfLife(const Scene& scene, uint8_t zOrder) : 
@@ -37,6 +38,12 @@ rng(std::time(nullptr))
 }
 
 void GameOfLife::update(sf::Time gameTime) {
+  if(gameFsm == nullptr) {
+    assert(getScene().getGameObjects<GameFsm>().size() == 1);
+    gameFsm = getScene().getGameObjects<GameFsm>()[0];
+    gameFsm->registerObserver(*this);
+  }
+
   if(gameSpeed.getElapsedTime().asSeconds() > 1.f || generation == 0) {  
     gameSpeed.restart();
     generation++;
@@ -89,18 +96,14 @@ void GameOfLife::handleEvent(const sf::Event& e) {
   if(e.type == sf::Event::EventType::Resized) {
     windowSize.x = getScene().getGameEngine().getWindowSize().x;
     windowSize.y = getScene().getGameEngine().getWindowSize().y;
-  } else if(e.type ==sf::Event::EventType::KeyPressed) {
-    if(e.key.code == sf::Keyboard::P) {
-      std::clog << "P pressed!\n";
-      paused = !paused;
-      if(paused) {
-        notify({Event::GamePause});
-      } else {
-        notify({Event::GameStart});
-      }
-    } else if(e.key.code == sf::Keyboard::Num1) {
-      notify({Event::GameOver});
-    }
+  } 
+}
+
+void GameOfLife::onNotify(GameState e){
+  if(e.gameState == GameState::GamePaused) {
+    paused = true;
+  } else if( e.gameState == GameState::GameRunning) {
+    paused = false;
   }
 }
 

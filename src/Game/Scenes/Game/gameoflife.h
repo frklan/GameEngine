@@ -21,7 +21,12 @@
 #include <ResourceManager.h>
 #include <Scene.h>
 
-class GameOfLife : public GameObject, public Observable {
+#include "gamefsm.h"
+
+struct GameState;
+class GameFsm;
+
+class GameOfLife : public GameObject, public Observer<GameState> {
   public:
     enum CellState {
       off = 0,
@@ -45,6 +50,8 @@ class GameOfLife : public GameObject, public Observable {
     virtual void setCell(sf::Vector2u, CellState);
     virtual void  killAllCells() { cells.fill(CellState::off); };
 
+    virtual void onNotify(GameState) override;
+
   private:
     static const uint16_t HEGHT = 216;
     static const uint16_t WIDTH = 384;
@@ -59,6 +66,7 @@ class GameOfLife : public GameObject, public Observable {
     sf::Vector2u windowSize;
     std::mt19937 rng;
     sf::Clock gameSpeed;
+    GameFsm* gameFsm = nullptr;
     
     const int getRandom(int min, int max);
     const uint32_t getAliveNeighbors(uint16_t x, uint16_t y) const noexcept;

@@ -28,13 +28,14 @@ Cursor::Cursor(const Scene& scene, uint8_t zOrder) :
 GameObject(scene, zOrder), 
 windowSize(getScene().getGameEngine().getWindowSize())
 { 
-  assert(scene.getGameObjects<GameOfLife>().size() == 1);
-  gameOfLife = scene.getGameObjects<GameOfLife>()[0];
-
   getScene().getGameEngine().getWindow().setMouseCursorVisible(false);
 }
 
 void Cursor::update(sf::Time gameTime) {
+  if(gameOfLife == nullptr) {
+    assert(getScene().getGameObjects<GameOfLife>().size() == 1);
+    gameOfLife = getScene().getGameObjects<GameOfLife>()[0];
+  }
 }
 
 void Cursor::render(sf::RenderTarget& target, sf::Time gameTime) {
@@ -82,10 +83,6 @@ void Cursor::handleEvent(const sf::Event& e) {
     } else if(e.mouseButton.button == sf::Mouse::Button::Left) {
       gameOfLife->setCell({x, y}, GameOfLife::CellState::off);
     } else if(e.mouseButton.button == sf::Mouse::Button::Middle) {
-      gameOfLife->killAllCells();
-    }
-  } else if(e.type == sf::Event::EventType::KeyPressed) {
-    if(e.key.code == sf::Keyboard::Key::C) {
       gameOfLife->killAllCells();
     }
   }

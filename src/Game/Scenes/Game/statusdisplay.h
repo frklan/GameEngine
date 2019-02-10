@@ -22,9 +22,11 @@
 #include <Scene.h>
 
 #include "gameoflife.h"
+#include "gamefsm.h"
 
+class Event;
 
-class StatusDisplay : public GameObject, public Observer {
+class StatusDisplay : public GameObject, public Observer<GameState> {
   public:
     StatusDisplay() = delete;
     StatusDisplay(const Scene& scene, uint8_t zOrder);
@@ -35,11 +37,13 @@ class StatusDisplay : public GameObject, public Observer {
     virtual void render(sf::RenderTarget& target, sf::Time gameTime) override;
     virtual void handleEvent(const sf::Event& e) override;
 
-    virtual void onNotify(Event e) override;
+    virtual void onNotify(GameState e) override;
 
   private:
     sf::Text pauseText;
     bool isPaused = false;
     sf::Clock blinkOn;
+
+    GameFsm* gameFsm = nullptr;
 };
 

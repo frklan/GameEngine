@@ -28,9 +28,10 @@
 GameScene::GameScene(GameEngine& engine) : Scene(engine) { 
   std::clog << "GameScene scene created!\n"; 
   
-  this->addGameObject(std::make_unique<Debugview>(*this, 0));
   this->addGameObject(std::make_unique<GameOfLife>(*this, 20));
+  this->addGameObject(std::make_unique<Debugview>(*this, 0));
   this->addGameObject(std::make_unique<Grid>(*this, 10));
+  this->addGameObject(std::make_unique<GameFsm>(*this, 1000));
   this->addGameObject(std::make_unique<Cursor>(*this, 5));
   this->addGameObject(std::make_unique<StatusDisplay>(*this, 0));
 }

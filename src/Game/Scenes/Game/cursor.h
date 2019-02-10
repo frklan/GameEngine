@@ -37,7 +37,7 @@ class Cursor : public GameObject {
   private:
     sf::Vector2u windowSize;
     std::array<sf::Vertex, 4> cursor;
-    GameOfLife* gameOfLife;
+    GameOfLife* gameOfLife = nullptr;
     sf::Color cursorColor{185, 118, 93, 255};
 };
 
