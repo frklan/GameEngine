@@ -22,10 +22,10 @@
 #include <ResourceManager.h>
 #include <Scene.h>
 
-#include "gamefsm.h"
+#include "gamescene.h"
 #include "gameoflife.h"
 
-GameOfLife::GameOfLife(const Scene& scene, uint8_t zOrder) : 
+GameOfLife::GameOfLife(Scene& scene, uint8_t zOrder) : 
 GameObject(scene, zOrder), 
 windowSize(getScene().getGameEngine().getWindowSize()),
 rng(std::time(nullptr))
@@ -35,14 +35,11 @@ rng(std::time(nullptr))
 
   generateRandomCellStructure();
   gameSpeed.restart();
+
+  dynamic_cast<GameScene&>(scene).registerObserver(*this);
 }
 
 void GameOfLife::update(sf::Time gameTime) {
-  if(gameFsm == nullptr) {
-    assert(getScene().getGameObjects<GameFsm>().size() == 1);
-    gameFsm = getScene().getGameObjects<GameFsm>()[0];
-    gameFsm->registerObserver(*this);
-  }
 
   if(gameSpeed.getElapsedTime().asSeconds() > 1.f || generation == 0) {  
     gameSpeed.restart();

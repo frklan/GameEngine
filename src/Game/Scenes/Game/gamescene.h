@@ -18,7 +18,31 @@
 #include <ResourceManager.h>
 #include <Scene.h>
 
-class GameScene : public Scene {
+#include "gameoflife.h"
+
+class GameOfLife;
+
+struct GameState {
+  enum State {
+    GameRunning,
+    GameOver,
+    GamePaused,
+    GameGui,
+    GameQuit
+  };
+
+  struct GameRunningData {
+    bool running = true;
+  };
+
+  State gameState = GameRunning;
+
+  union stateData {
+    GameRunningData runningData;
+  };
+};
+
+class GameScene : public Scene, public Observable<GameState> {
   public:
     GameScene() = delete;
     GameScene(GameEngine& engine);
@@ -30,4 +54,7 @@ class GameScene : public Scene {
     void onDeactivate();
 
   private:
+
+  GameOfLife* gameOfLife = nullptr;
+  bool isPaused = false;
 };

@@ -23,24 +23,19 @@
 #include <Scene.h>
 
 #include "gameoflife.h"
-#include "gamefsm.h"
 #include "statusdisplay.h"
 
-StatusDisplay::StatusDisplay(const Scene& scene, uint8_t zOrder) : GameObject(scene) { 
+StatusDisplay::StatusDisplay(Scene& scene, uint8_t zOrder) : GameObject(scene) { 
   pauseText.setPosition(10, 10);
   pauseText.setFont(getScene().getGameEngine().getFontResource("src/Game/Resources/pixel_operator/PixelOperator8.ttf"));
   pauseText.setFillColor(sf::Color::Red);
   pauseText.setCharacterSize(35);
   pauseText.setString("PAUSED");
+
+  dynamic_cast<GameScene&>(scene).registerObserver(*this);
 }
 
 void StatusDisplay::update(sf::Time gameTime) {
-  if(gameFsm == nullptr) {
-    assert(getScene().getGameObjects<GameFsm>().size() == 1);
-    gameFsm = getScene().getGameObjects<GameFsm>()[0];
-    gameFsm->registerObserver(*this);
-  }
-
   auto windowSize = getScene().getGameEngine().getWindowSize();
   auto textSize = pauseText.getGlobalBounds();
 
@@ -60,9 +55,6 @@ void StatusDisplay::render(sf::RenderTarget& target, sf::Time gameTime) {
   }
 }
 
-void StatusDisplay::handleEvent(const sf::Event& e) {
-  
-}
 
 void StatusDisplay::onNotify(GameState e) { 
   isPaused = false;

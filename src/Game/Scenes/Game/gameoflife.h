@@ -21,10 +21,10 @@
 #include <ResourceManager.h>
 #include <Scene.h>
 
-#include "gamefsm.h"
+#include "gamescene.h"
 
 struct GameState;
-class GameFsm;
+class GameScene;
 
 class GameOfLife : public GameObject, public Observer<GameState> {
   public:
@@ -33,7 +33,7 @@ class GameOfLife : public GameObject, public Observer<GameState> {
       on = 1,
     };
     GameOfLife() = delete;
-    GameOfLife(const Scene& scene, uint8_t zOrder);
+    GameOfLife(Scene& scene, uint8_t zOrder);
     
     virtual ~GameOfLife() = default;
     
@@ -66,7 +66,6 @@ class GameOfLife : public GameObject, public Observer<GameState> {
     sf::Vector2u windowSize;
     std::mt19937 rng;
     sf::Clock gameSpeed;
-    GameFsm* gameFsm = nullptr;
     
     const int getRandom(int min, int max);
     const uint32_t getAliveNeighbors(uint16_t x, uint16_t y) const noexcept;

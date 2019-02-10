@@ -29,12 +29,8 @@ Grid::Grid(const Scene& scene, uint8_t zOrder) :
 GameObject(scene, zOrder), 
 windowSize(getScene().getGameEngine().getWindowSize())
 { 
-  auto gols = scene.getGameObjects<GameOfLife>();
-  if(gols.size() == 1) {
-    gameOfLife = gols[0];
-  } else {
-    throw std::runtime_error("No GameOfLife found, did we forget to create it?");
-  }
+  assert(scene.getGameObjects<GameOfLife>().size() == 1);
+  gameOfLife = getScene().getGameObjects<GameOfLife>()[0];
 
   generateGrid();
 }

@@ -29,13 +29,12 @@ GameObject(scene, zOrder),
 windowSize(getScene().getGameEngine().getWindowSize())
 { 
   getScene().getGameEngine().getWindow().setMouseCursorVisible(false);
+
+  assert(scene.getGameObjects<GameOfLife>().size() == 1);
+  gameOfLife = getScene().getGameObjects<GameOfLife>()[0];
 }
 
 void Cursor::update(sf::Time gameTime) {
-  if(gameOfLife == nullptr) {
-    assert(getScene().getGameObjects<GameOfLife>().size() == 1);
-    gameOfLife = getScene().getGameObjects<GameOfLife>()[0];
-  }
 }
 
 void Cursor::render(sf::RenderTarget& target, sf::Time gameTime) {

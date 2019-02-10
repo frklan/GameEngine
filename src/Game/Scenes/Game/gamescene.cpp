@@ -23,15 +23,19 @@
 #include "statusdisplay.h"
 #include "../Common/DebugView/debugview.h"
 
+#include "gameoflife.h"
 #include "gamescene.h"
+
+class GameOfLife;
 
 GameScene::GameScene(GameEngine& engine) : Scene(engine) { 
   std::clog << "GameScene scene created!\n"; 
   
-  this->addGameObject(std::make_unique<GameOfLife>(*this, 20));
+  auto gol = this->addGameObject(std::make_unique<GameOfLife>(*this, 20));
+  gameOfLife = dynamic_cast<GameOfLife*>(gol);
+
   this->addGameObject(std::make_unique<Debugview>(*this, 0));
   this->addGameObject(std::make_unique<Grid>(*this, 10));
-  this->addGameObject(std::make_unique<GameFsm>(*this, 1000));
   this->addGameObject(std::make_unique<Cursor>(*this, 5));
   this->addGameObject(std::make_unique<StatusDisplay>(*this, 0));
 }
@@ -43,9 +47,17 @@ GameScene::~GameScene() {
 void GameScene::handleEvent(sf::Event& e) {
   Scene::handleEvent(e);
 
-  if(e.type == sf::Event::MouseButtonPressed) {
-    //gameEngine.switchScene("intro");
-    //gameEngine.unloadScene("game");    
+  if(e.type == sf::Event::EventType::KeyPressed) {
+    if(e.key.code == sf::Keyboard::P) {
+      isPaused = !isPaused;
+      if(isPaused) {
+        notify({GameState::GamePaused});
+      } else {
+        notify({GameState::GameRunning});
+      }
+    } else if(e.key.code == sf::Keyboard::Key::C) {
+      gameOfLife->killAllCells();
+    }
   }
 }
 
