@@ -9,8 +9,9 @@ Scene::~Scene() {
   std::clog << "Scene destroyed\n"; 
 }
 
-void Scene::addGameObject(std::unique_ptr<GameObject> gameObject) {
-  gameObjects.insert({gameObject->getZOrder(), std::move(gameObject)});
+GameObject* Scene::addGameObject(std::unique_ptr<GameObject> gameObject) {
+  auto i = gameObjects.insert({gameObject->getZOrder(), std::move(gameObject)});
+  return i->second.get();
 }
 
 // const GameObject* Scene::getGameObject(std::string name) const {

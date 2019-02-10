@@ -21,7 +21,7 @@ class Scene {
     virtual void onActivate() {};
     virtual void onDeactivate() {};
 
-    void addGameObject(std::unique_ptr<GameObject> gameObject);
+    GameObject* addGameObject(std::unique_ptr<GameObject> gameObject);
     //const GameObject* Scene::getGameObject(std::string name) const
     template<typename T> std::vector<T*> getGameObjects() const;
     void deleteGameObject(std::string name);
