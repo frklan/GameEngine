@@ -24,19 +24,34 @@ void Scene::deleteGameObject(std::string name) {
 
 void Scene::update(sf::Time gameTime) { 
   for(auto c = gameObjects.rbegin(); c != gameObjects.rend(); c++) {
-    c->second->update(gameTime);
+    try{
+      c->second->update(gameTime);
+    } catch(std::exception& e) {
+      std::cerr << "Warning! exception: " << e.what() << '\n';
+      continue;
+    }
   }
 };
 
 void Scene::handleEvent(sf::Event& e) {
   for(auto c = gameObjects.rbegin(); c != gameObjects.rend(); c++) {
-    c->second->handleEvent(e);
+    try{
+      c->second->handleEvent(e);
+    } catch(std::exception& e) {
+      std::cerr << "Warning! exception: " << e.what() << '\n';
+      continue;
+    }
   }
 }
 
 void Scene::render(sf::RenderTarget& rt, sf::Time gameTime) {
   for(auto go = gameObjects.rbegin(); go != gameObjects.rend(); go++) {
-    go->second->render(rt, gameTime);
+    try{
+      go->second->render(rt, gameTime);
+    } catch(std::exception& e) {
+      std::cerr << "Warning! exception: " << e.what() << '\n';
+      continue;
+    }
   }
 }
 
