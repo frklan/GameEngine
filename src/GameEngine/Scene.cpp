@@ -19,8 +19,15 @@ GameObject* Scene::addGameObject(std::unique_ptr<GameObject> gameObject) {
 //   return nullptr;
 // }
 
-void Scene::deleteGameObject(std::string name) {
-  throw std::runtime_error("Scene::deleteGameObject is not implemented!");
+void Scene::deleteGameObject(GameObject* removeMe) {
+  //throw std::runtime_error("Scene::deleteGameObject is not implemented!");
+  for(auto c = gameObjects.begin(); c != gameObjects.end(); c++) {
+    if(c->second.get() == removeMe) {
+      std::clog << "found! removing";
+      gameObjects.erase(c);
+      return;
+    }
+  }
 }
 
 void Scene::update(sf::Time gameTime) { 
