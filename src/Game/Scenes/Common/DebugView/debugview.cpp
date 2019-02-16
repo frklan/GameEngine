@@ -38,7 +38,7 @@ Debugview::Debugview(const Scene& scene, uint8_t zOrder) : GameObject(scene, zOr
   this->gpuInfo.setPosition(windowSize.x - 10, 10);
 }
 
-void Debugview::update(const sf::Time gameTime) {
+void Debugview::onUpdate(const sf::Time gameTime) {
   if(gameTime - lastUpdate > sf::seconds(0.5f)) {
     std::stringstream debugString;
     debugString << "GameEngine v" << "0.1.0" << '\n' \
@@ -53,14 +53,14 @@ void Debugview::update(const sf::Time gameTime) {
   }
 }
 
-void Debugview::render(sf::RenderTarget& target, sf::Time gameTime) {
+void Debugview::onRender(sf::RenderTarget& target, sf::Time gameTime) {
   if(showDebug) {
     target.draw(this->debugText);
     target.draw(this->gpuInfo);
   }
 }
 
-void Debugview::handleEvent(const sf::Event& e) {
+void Debugview::onEvent(const sf::Event& e) {
   if(e.type == sf::Event::Resized) {
     auto gpuInfoBounds(this->gpuInfo.getLocalBounds());
     sf::FloatRect windowSize(0, 0, e.size.width, e.size.height);

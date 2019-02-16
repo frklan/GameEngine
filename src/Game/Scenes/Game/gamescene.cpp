@@ -28,9 +28,7 @@
 
 class GameOfLife;
 
-GameScene::GameScene(GameEngine& engine) : Scene(engine) { 
-  std::clog << "GameScene scene created!\n"; 
-  
+GameScene::GameScene(GameEngine& engine) : Scene(engine) {   
   auto gol = this->addGameObject(std::make_unique<GameOfLife>(*this, 20));
   gameOfLife = dynamic_cast<GameOfLife*>(gol);
 
@@ -40,13 +38,14 @@ GameScene::GameScene(GameEngine& engine) : Scene(engine) {
   this->addGameObject(std::make_unique<StatusDisplay>(*this, 0));
 }
 
-GameScene::~GameScene() { 
-  std::clog << "GameScene scene destroyed!\n"; 
+bool GameScene::onActivate() { 
+  gameEngine.setFramerateLimit(120);
+  return true;
 }
 
-void GameScene::handleEvent(sf::Event& e) {
-  Scene::handleEvent(e);
-
+bool GameScene::onEvent(sf::Event& e) {
+  
+  // Consume "our" events by returning true
   if(e.type == sf::Event::EventType::KeyPressed) {
     if(e.key.code == sf::Keyboard::P) {
       isPaused = !isPaused;
@@ -55,25 +54,13 @@ void GameScene::handleEvent(sf::Event& e) {
       } else {
         notify({GameState::GameRunning});
       }
+      return true;
     } else if(e.key.code == sf::Keyboard::Key::C) {
       gameOfLife->killAllCells();
+      return true;
     }
   }
-}
 
-void GameScene::update(sf::Time gameTimeMs) { 
-  Scene::update(gameTimeMs);
-};
-
-void GameScene::onActivate() { 
-  Scene::onActivate();
-
-  gameEngine.setFramerateLimit(120);
-  std::clog << "GameScene::onActivate()\n";
-}
-
-void GameScene::onDeactivate() { 
-  Scene::onDeactivate();
-  
-  std::clog << "GameScene::onDeactivate()\n";
+  // false == event not handled.
+  return false;
 }

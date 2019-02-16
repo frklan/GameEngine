@@ -27,7 +27,7 @@ windowSize(getScene().getGameEngine().getWindowSize())
   createBackground();
 }
 
-void BackgroundQuad::update(const sf::Time gameTime) {
+void BackgroundQuad::onUpdate(const sf::Time gameTime) {
   for(auto i = 0; i < quad.size(); i++){
     float dT = gameTime.asSeconds() + i / float(quad.size() / 2);
     auto sdT = sin(dT);
@@ -35,11 +35,11 @@ void BackgroundQuad::update(const sf::Time gameTime) {
   }
 }
 
-void BackgroundQuad::render(sf::RenderTarget& target, sf::Time gameTime) {
+void BackgroundQuad::onRender(sf::RenderTarget& target, sf::Time gameTime) {
   target.draw(quad.data(), quad.size(), sf::PrimitiveType::Quads);
 }
 
-void BackgroundQuad::handleEvent(const sf::Event& e) {
+void BackgroundQuad::onEvent(const sf::Event& e) {
   if(e.type == sf::Event::Resized) {
     windowSize = getScene().getGameEngine().getWindowSize();
     createBackground();

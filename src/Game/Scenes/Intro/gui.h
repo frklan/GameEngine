@@ -30,9 +30,9 @@ class Gui : public GameObject {
     
     virtual ~Gui() = default;
     
-    virtual void update(const sf::Time gameTime) override;
-    virtual void render(sf::RenderTarget& target, sf::Time gameTime) override;
-    virtual void handleEvent(const sf::Event& e) override;
+    virtual void onEvent(const sf::Event& e) override;  
+    virtual void onRender(sf::RenderTarget& target, sf::Time gameTime) override;
+    virtual void onUpdate(const sf::Time gameTime) override;
     
 
   private:

@@ -2,22 +2,12 @@
 #include "GameEngine.h"
 
 Scene::Scene(GameEngine& engine) : gameEngine(engine){ 
-  std::clog << "Scene created\n"; 
-}
-
-Scene::~Scene() { 
-  std::clog << "Scene destroyed\n"; 
 }
 
 GameObject* Scene::addGameObject(std::unique_ptr<GameObject> gameObject) {
   auto i = gameObjects.insert({gameObject->getZOrder(), std::move(gameObject)});
   return i->second.get();
 }
-
-// const GameObject* Scene::getGameObject(std::string name) const {
-//   throw std::runtime_error("Scene::getGameObject is not implemented!");
-//   return nullptr;
-// }
 
 void Scene::deleteGameObject(GameObject* removeMe) {
   //throw std::runtime_error("Scene::deleteGameObject is not implemented!");
@@ -31,34 +21,46 @@ void Scene::deleteGameObject(GameObject* removeMe) {
 }
 
 void Scene::update(sf::Time gameTime) { 
-  for(auto c = gameObjects.rbegin(); c != gameObjects.rend(); c++) {
-    try{
-      c->second->update(gameTime);
-    } catch(std::exception& e) {
-      std::cerr << "Warning! exception: " << e.what() << '\n';
-      continue;
+  auto hasUpdated = onUpdate(gameTime);
+  
+  if(!hasUpdated) {
+    for(auto c = gameObjects.rbegin(); c != gameObjects.rend(); c++) {
+      try{
+        c->second->onUpdate(gameTime);
+      } catch(std::exception& e) {
+        std::cerr << "Warning! exception: " << e.what() << '\n';
+        continue;
+      }
     }
   }
-};
+}
 
-void Scene::handleEvent(sf::Event& e) {
-  for(auto c = gameObjects.rbegin(); c != gameObjects.rend(); c++) {
-    try{
-      c->second->handleEvent(e);
-    } catch(std::exception& e) {
-      std::cerr << "Warning! exception: " << e.what() << '\n';
-      continue;
+void Scene::event(sf::Event& e) {
+  auto hasHandled = onEvent(e);
+ 
+  if(!hasHandled) {
+    for(auto c = gameObjects.rbegin(); c != gameObjects.rend(); c++) {
+      try{
+        c->second->onEvent(e);      
+      } catch(std::exception& e) {
+        std::cerr << "Warning! exception: " << e.what() << '\n';
+        continue;
+      }
     }
   }
 }
 
 void Scene::render(sf::RenderTarget& rt, sf::Time gameTime) {
-  for(auto go = gameObjects.rbegin(); go != gameObjects.rend(); go++) {
-    try{
-      go->second->render(rt, gameTime);
-    } catch(std::exception& e) {
-      std::cerr << "Warning! exception: " << e.what() << '\n';
-      continue;
+  auto hasRendered = onRender(rt, gameTime);
+
+  if(!hasRendered) { 
+    for(auto go = gameObjects.rbegin(); go != gameObjects.rend(); go++) {
+      try{
+        go->second->onRender(rt, gameTime);
+      } catch(std::exception& e) {
+        std::cerr << "Warning! exception: " << e.what() << '\n';
+        continue;
+      }
     }
   }
 }

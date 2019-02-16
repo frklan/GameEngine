@@ -23,11 +23,9 @@ class GameObject{
     virtual uint8_t getZOrder() const final { return zOrder; };
     virtual const Scene& getScene() const final { return scene; };
     
-    virtual void update(const sf::Time gameTime) {};
-    virtual void handleEvent(const sf::Event& e) {};  
-    
-    /* A derived class shall renders its own sprites, shapes etc. */
-    virtual void render(sf::RenderTarget& target, sf::Time gameTime) {};
+    virtual void onEvent(const sf::Event& e) {};  
+    virtual void onRender(sf::RenderTarget& target, sf::Time gameTime) {};
+    virtual void onUpdate(const sf::Time gameTime) {};
 
   private:
     uint8_t zOrder = 0;

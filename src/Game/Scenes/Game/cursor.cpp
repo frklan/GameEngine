@@ -34,14 +34,14 @@ windowSize(getScene().getGameEngine().getWindowSize())
   gameOfLife = getScene().getGameObjects<GameOfLife>()[0];
 }
 
-void Cursor::update(sf::Time gameTime) {
+void Cursor::onUpdate(sf::Time gameTime) {
 }
 
-void Cursor::render(sf::RenderTarget& target, sf::Time gameTime) {
+void Cursor::onRender(sf::RenderTarget& target, sf::Time gameTime) {
   target.draw(cursor.data(), cursor.size(), sf::PrimitiveType::Quads);
 }
 
-void Cursor::handleEvent(const sf::Event& e) {
+void Cursor::onEvent(const sf::Event& e) {
   auto cellSize = gameOfLife->getCellSize();
 
   if(e.type == sf::Event::EventType::Resized) {

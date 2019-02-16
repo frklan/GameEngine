@@ -46,12 +46,10 @@ class GameScene : public Scene, public Observable<GameState> {
   public:
     GameScene() = delete;
     GameScene(GameEngine& engine);
-    ~GameScene();
+    ~GameScene() = default;
 
-    void handleEvent(sf::Event& e);
-    void update(sf::Time gameTimeMs);
-    void onActivate();
-    void onDeactivate();
+    virtual bool onActivate() override;
+    virtual bool onEvent(sf::Event& e) override;
 
   private:
 

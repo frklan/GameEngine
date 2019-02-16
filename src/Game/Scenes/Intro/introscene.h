@@ -29,9 +29,8 @@ class Intro : public Scene {
     Intro(GameEngine& engine);
     ~Intro();
 
-    void handleEvent(sf::Event& e) override;
-    void onActivate() override;
-    void onDeactivate() override;
+    virtual bool onActivate() override;
+    virtual bool onDeactivate() override;
 
     ImFont* getImFont() const;
 

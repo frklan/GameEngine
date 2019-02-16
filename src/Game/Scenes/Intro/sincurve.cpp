@@ -30,7 +30,7 @@ windowSize(getScene().getGameEngine().getWindowSize())
   vertexClock.restart();
 }
 
-void SinCurve::update(const sf::Time gameTime) {
+void SinCurve::onUpdate(const sf::Time gameTime) {
   auto f = sin(gameTime.asSeconds() / float(curveOffsetX));
 
   for(auto i = 0; i < curve.size(); i++) {
@@ -46,11 +46,11 @@ void SinCurve::update(const sf::Time gameTime) {
   }
 }
 
-void SinCurve::render(sf::RenderTarget& target, sf::Time gameTime) {  
+void SinCurve::onRender(sf::RenderTarget& target, sf::Time gameTime) {  
   target.draw(curve.data(), curve.size(), sf::PrimitiveType::LineStrip);
 }
 
-void SinCurve::handleEvent(const sf::Event& e) {
+void SinCurve::onEvent(const sf::Event& e) {
   if(e.type == sf::Event::Resized) {
     windowSize = getScene().getGameEngine().getWindowSize();
     createCurve();

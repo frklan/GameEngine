@@ -59,9 +59,7 @@ Intro::~Intro() {
   std::clog << "Intro scene destroyed!\n"; 
 }
 
-void Intro::onActivate() { 
-  Scene::onActivate();
-
+bool Intro::onActivate() { 
   gameEngine.setFramerateLimit(60);
   std::clog << "Intro::onActivate()\n";
 
@@ -71,24 +69,14 @@ void Intro::onActivate() {
 
   imFont = ImGui::GetIO().Fonts->AddFontFromFileTTF("src/Game/Resources/8-BIT_WONDER.TTF", 16);
   ImGui::SFML::UpdateFontTexture();
+  return true;
 };
 
-void Intro::onDeactivate() {
-  Scene::onDeactivate();
-
+bool Intro::onDeactivate() {
   std::clog << "Intro::onDeactivate()\n";
-
   ImGui::SFML::Shutdown();
+  return true;
 };
-
-void Intro::handleEvent(sf::Event& e) {
-  Scene::handleEvent(e);
-
-  // if(e.type == sf::Event::MouseButtonPressed) {
-  //   gameEngine.addScene("game", std::make_unique<GameScene>(gameEngine));
-  //   gameEngine.switchScene("game");
-  // }
-}
 
 ImFont* Intro::getImFont() const {
   return imFont;

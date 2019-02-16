@@ -13,16 +13,20 @@ class Scene {
   public:
     Scene() = delete;
     Scene(GameEngine&);
-    virtual ~Scene();
+    virtual ~Scene() = default;
     
-    virtual void handleEvent(sf::Event& e);
-    virtual void update(sf::Time gameTime);
-    virtual void render(sf::RenderTarget& w, sf::Time gameTime);
-    virtual void onActivate() {};
-    virtual void onDeactivate() {};
+    virtual void event(sf::Event& e) final;
+    virtual void update(sf::Time gameTime) final;
+    virtual void render(sf::RenderTarget& w, sf::Time gameTime) final;
+    
+    virtual bool onActivate() { return false; };
+    virtual bool onDeactivate() { return false; };
+    virtual bool onEvent(sf::Event& e) { return false; };
+    virtual bool onRender(sf::RenderTarget& w, sf::Time gameTime) { return false; };
+    virtual bool onUpdate(sf::Time gameTime) { return false; };
+    
 
     GameObject* addGameObject(std::unique_ptr<GameObject> gameObject);
-    //const GameObject* Scene::getGameObject(std::string name) const
     template<typename T> std::vector<T*> getGameObjects() const;
     void deleteGameObject(GameObject*);
     
@@ -31,9 +35,7 @@ class Scene {
 
   protected:
     GameEngine& gameEngine;
-
-  private:
-    std::multimap<uint8_t, std::unique_ptr<GameObject>> gameObjects;
+    std::multimap<uint8_t, std::unique_ptr<GameObject>> gameObjects;    
 };
 
 template<typename T> 

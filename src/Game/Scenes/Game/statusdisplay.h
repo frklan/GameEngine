@@ -30,8 +30,9 @@ class StatusDisplay : public GameObject, public Observer<GameState> {
     
     virtual ~StatusDisplay() = default;
     
-    virtual void update(const sf::Time gameTime) override;
-    virtual void render(sf::RenderTarget& target, sf::Time gameTime) override;
+    virtual void onRender(sf::RenderTarget& target, sf::Time gameTime) override;
+    virtual void onUpdate(const sf::Time gameTime) override;
+    
     virtual void onNotify(GameState e) override;
 
   private:

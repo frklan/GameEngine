@@ -35,14 +35,11 @@ windowSize(getScene().getGameEngine().getWindowSize())
   generateGrid();
 }
 
-void Grid::update(sf::Time gameTime) {
-}
-
-void Grid::render(sf::RenderTarget& target, sf::Time gameTime) {
+void Grid::onRender(sf::RenderTarget& target, sf::Time gameTime) {
   target.draw(grid.data(), grid.size(), sf::PrimitiveType::Lines);
 }
 
-void Grid::handleEvent(const sf::Event& e) {
+void Grid::onEvent(const sf::Event& e) {
   if(e.type == sf::Event::EventType::Resized) {
     windowSize.x = getScene().getGameEngine().getWindowSize().x;
     windowSize.y = getScene().getGameEngine().getWindowSize().y;

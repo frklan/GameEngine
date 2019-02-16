@@ -39,7 +39,7 @@ rng(std::time(nullptr))
   dynamic_cast<GameScene&>(scene).registerObserver(*this);
 }
 
-void GameOfLife::update(sf::Time gameTime) {
+void GameOfLife::onUpdate(sf::Time gameTime) {
 
   if(gameSpeed.getElapsedTime().asSeconds() > 1.f || generation == 0) {  
     gameSpeed.restart();
@@ -85,11 +85,11 @@ void GameOfLife::updateCellVertex(uint16_t x, uint16_t y, CellState& cell) {
   vertexs[i * 4 + 3] = sf::Vertex(bottomLeft, cellColor);
 }
 
-void GameOfLife::render(sf::RenderTarget& target, sf::Time gameTime) {
+void GameOfLife::onRender(sf::RenderTarget& target, sf::Time gameTime) {
   target.draw(vertexs.data(), vertexs.size(), sf::PrimitiveType::Quads);
 }
 
-void GameOfLife::handleEvent(const sf::Event& e) {
+void GameOfLife::onEvent(const sf::Event& e) {
   if(e.type == sf::Event::EventType::Resized) {
     windowSize.x = getScene().getGameEngine().getWindowSize().x;
     windowSize.y = getScene().getGameEngine().getWindowSize().y;

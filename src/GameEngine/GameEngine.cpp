@@ -99,7 +99,7 @@ int GameEngine::run() {
         gameView.setCenter(sf::Vector2f(winSize.x / 2, winSize.y / 2));
         gameWindow.setView(gameView);
       }
-      currentScene->handleEvent(ev);
+      currentScene->event(ev);
     }
 
      /* Update all data and entites */
