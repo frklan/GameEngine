@@ -17,8 +17,6 @@
 #include <Event.h>
 #include <GameEngine.h>
 #include <GameObject.h>
-#include <Observable.h>
-#include <Observer.h>
 #include <ResourceManager.h>
 #include <Scene.h>
 
@@ -36,7 +34,6 @@ rng(std::time(nullptr))
   generateRandomCellStructure();
   gameSpeed.restart();
 
-  dynamic_cast<GameScene&>(scene).registerObserver(*this);
 }
 
 void GameOfLife::onUpdate(sf::Time gameTime) {
@@ -96,13 +93,6 @@ void GameOfLife::onEvent(const sf::Event& e) {
   } 
 }
 
-void GameOfLife::onNotify(GameState e){
-  if(e.gameState == GameState::GamePaused) {
-    paused = true;
-  } else if( e.gameState == GameState::GameRunning) {
-    paused = false;
-  }
-}
 
 const int GameOfLife::getRandom(int min, int max) {
   std::uniform_int_distribution<int> dist(min, max);

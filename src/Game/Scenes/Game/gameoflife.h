@@ -13,11 +13,8 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/OpenGL.hpp>
 
-#include <Event.h>
 #include <GameEngine.h>
 #include <GameObject.h>
-#include <Observable.h>
-#include <Observer.h>
 #include <ResourceManager.h>
 #include <Scene.h>
 
@@ -26,7 +23,7 @@
 struct GameState;
 class GameScene;
 
-class GameOfLife : public GameObject, public Observer<GameState> {
+class GameOfLife : public GameObject {
   public:
     enum CellState {
       off = 0,
@@ -50,7 +47,6 @@ class GameOfLife : public GameObject, public Observer<GameState> {
     virtual void setCell(sf::Vector2u, CellState);
     virtual void  killAllCells() { cells.fill(CellState::off); };
 
-    virtual void onNotify(GameState) override;
 
   private:
     static const uint16_t HEGHT = 216;

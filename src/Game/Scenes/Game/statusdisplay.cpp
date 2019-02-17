@@ -14,11 +14,8 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/OpenGL.hpp>
 
-#include <Event.h>
 #include <GameEngine.h>
 #include <GameObject.h>
-#include <Observable.h>
-#include <Observer.h>
 #include <ResourceManager.h>
 #include <Scene.h>
 
@@ -32,7 +29,6 @@ StatusDisplay::StatusDisplay(Scene& scene, uint8_t zOrder) : GameObject(scene) {
   pauseText.setCharacterSize(35);
   pauseText.setString("PAUSED");
 
-  dynamic_cast<GameScene&>(scene).registerObserver(*this);
 }
 
 void StatusDisplay::onUpdate(sf::Time gameTime) {
@@ -52,16 +48,5 @@ void StatusDisplay::onUpdate(sf::Time gameTime) {
 void StatusDisplay::onRender(sf::RenderTarget& target, sf::Time gameTime) {
   if(isPaused) {
     target.draw(pauseText);
-  }
-}
-
-
-void StatusDisplay::onNotify(GameState e) { 
-  isPaused = false;
-  if(e.gameState == GameState::State::GamePaused) {
-    isPaused = true;
-
-  } else if(e.gameState == GameState::State::GameRunning) {
-    isPaused = false;
   }
 }

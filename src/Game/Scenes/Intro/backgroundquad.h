@@ -11,11 +11,8 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/OpenGL.hpp>
 
-#include <Event.h>
 #include <GameEngine.h>
 #include <GameObject.h>
-#include <Observable.h>
-#include <Observer.h>
 #include <ResourceManager.h>
 #include <Scene.h>
 

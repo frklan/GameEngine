@@ -13,17 +13,14 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/OpenGL.hpp>
 
-#include <Event.h>
 #include <GameEngine.h>
 #include <GameObject.h>
-#include <Observable.h>
-#include <Observer.h>
 #include <ResourceManager.h>
 #include <Scene.h>
 
 #include "gameoflife.h"
 
-class StatusDisplay : public GameObject, public Observer<GameState> {
+class StatusDisplay : public GameObject {
   public:
     StatusDisplay() = delete;
     StatusDisplay(Scene& scene, uint8_t zOrder);
@@ -33,8 +30,6 @@ class StatusDisplay : public GameObject, public Observer<GameState> {
     virtual void onRender(sf::RenderTarget& target, sf::Time gameTime) override;
     virtual void onUpdate(const sf::Time gameTime) override;
     
-    virtual void onNotify(GameState e) override;
-
   private:
     sf::Text pauseText;
     bool isPaused = false;

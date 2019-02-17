@@ -23,7 +23,6 @@ set(SOURCES
     src/Game/Scenes/Intro/sincurve.cpp
     src/Game/main.cpp
     src/GameEngine/GameEngine.cpp
-    src/GameEngine/Observable.cpp
     src/GameEngine/Scene.cpp
     src/lib/imgui/imgui.cpp
     src/lib/imgui/imgui_demo.cpp

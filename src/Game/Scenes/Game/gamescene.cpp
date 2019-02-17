@@ -9,11 +9,8 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/OpenGL.hpp>
 
-#include <Event.h>
 #include <GameEngine.h>
 #include <GameObject.h>
-#include <Observable.h>
-#include <Observer.h>
 #include <ResourceManager.h>
 #include <Scene.h>
 
@@ -51,9 +48,9 @@ bool GameScene::onEvent(sf::Event& e) {
     if(e.key.code == sf::Keyboard::P) {
       isPaused = !isPaused;
       if(isPaused) {
-        notify({GameState::State::GamePaused});
+        std::clog << "TODO\n";
       } else {
-        notify({GameState::State::GameRunning});
+        std::clog << "TODO\n";
       }
       return true;
     } else if(e.key.code == sf::Keyboard::Key::C) {

@@ -13,11 +13,8 @@
 #include <imgui/imgui.h>
 #include <imgui-sfml/imgui-SFML.h>
 
-#include <Event.h>
 #include <GameEngine.h>
 #include <GameObject.h>
-#include <Observable.h>
-#include <Observer.h>
 #include <ResourceManager.h>
 #include <Scene.h>
 
