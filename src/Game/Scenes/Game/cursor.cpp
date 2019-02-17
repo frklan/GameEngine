@@ -34,6 +34,10 @@ windowSize(getScene().getGameEngine().getWindowSize())
   gameOfLife = getScene().getGameObjects<GameOfLife>()[0];
 }
 
+Cursor::~Cursor() {
+  getScene().getGameEngine().getWindow().setMouseCursorVisible(true);
+}
+
 void Cursor::onUpdate(sf::Time gameTime) {
 }
 

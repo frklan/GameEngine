@@ -58,10 +58,10 @@ void StatusDisplay::onRender(sf::RenderTarget& target, sf::Time gameTime) {
 
 void StatusDisplay::onNotify(GameState e) { 
   isPaused = false;
-  if(e.gameState == GameState::GamePaused) {
+  if(e.gameState == GameState::State::GamePaused) {
     isPaused = true;
 
-  } else if(e.gameState == GameState::GameRunning) {
+  } else if(e.gameState == GameState::State::GameRunning) {
     isPaused = false;
   }
 }

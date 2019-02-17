@@ -28,7 +28,7 @@ class Scene {
 
     GameObject* addGameObject(std::unique_ptr<GameObject> gameObject);
     template<typename T> std::vector<T*> getGameObjects() const;
-    void deleteGameObject(GameObject*);
+    bool deleteGameObject(GameObject*);
     
     const int getNumOfEntities() const;
     GameEngine& getGameEngine() const;

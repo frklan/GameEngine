@@ -31,15 +31,7 @@ struct GameState {
     GameQuit
   };
 
-  struct GameRunningData {
-    bool running = true;
-  };
-
-  State gameState = GameRunning;
-
-  union stateData {
-    GameRunningData runningData;
-  };
+  State gameState;
 };
 
 class GameScene : public Scene, public Observable<GameState> {
@@ -55,4 +47,5 @@ class GameScene : public Scene, public Observable<GameState> {
 
   GameOfLife* gameOfLife = nullptr;
   bool isPaused = false;
+  bool isGuiActive = false;
 };

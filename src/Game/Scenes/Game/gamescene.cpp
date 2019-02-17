@@ -25,6 +25,7 @@
 
 #include "gameoflife.h"
 #include "gamescene.h"
+#include "gui.h"
 
 class GameOfLife;
 
@@ -50,13 +51,29 @@ bool GameScene::onEvent(sf::Event& e) {
     if(e.key.code == sf::Keyboard::P) {
       isPaused = !isPaused;
       if(isPaused) {
-        notify({GameState::GamePaused});
+        notify({GameState::State::GamePaused});
       } else {
-        notify({GameState::GameRunning});
+        notify({GameState::State::GameRunning});
       }
       return true;
     } else if(e.key.code == sf::Keyboard::Key::C) {
       gameOfLife->killAllCells();
+      return true;
+    } else if(e.key.code == sf::Keyboard::Key::G) {
+      if(isGuiActive) {
+        isGuiActive = false;
+        auto* gui = getGameObjects<gamescene::Gui>()[0];
+        deleteGameObject(gui);
+
+        addGameObject(std::make_unique<Cursor>(*this, 5));
+      } else {
+        isGuiActive = true;
+        addGameObject(std::make_unique<gamescene::Gui>(*this, 0));
+        
+        auto* cursor = getGameObjects<Cursor>()[0];
+        deleteGameObject(cursor);
+        
+      }
       return true;
     }
   }

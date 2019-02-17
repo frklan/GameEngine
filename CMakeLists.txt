@@ -15,6 +15,7 @@ set(SOURCES
     src/Game/Scenes/Game/gameoflife.cpp
     src/Game/Scenes/Game/gamescene.cpp
     src/Game/Scenes/Game/grid.cpp
+    src/Game/Scenes/Game/gui.cpp
     src/Game/Scenes/Game/statusdisplay.cpp
     src/Game/Scenes/Intro/backgroundquad.cpp
     src/Game/Scenes/Intro/gui.cpp

@@ -9,15 +9,17 @@ GameObject* Scene::addGameObject(std::unique_ptr<GameObject> gameObject) {
   return i->second.get();
 }
 
-void Scene::deleteGameObject(GameObject* removeMe) {
+bool Scene::deleteGameObject(GameObject* removeMe) {
   //throw std::runtime_error("Scene::deleteGameObject is not implemented!");
   for(auto c = gameObjects.begin(); c != gameObjects.end(); c++) {
     if(c->second.get() == removeMe) {
       std::clog << "found! removing";
       gameObjects.erase(c);
-      return;
+      return true;
     }
   }
+
+  return false;
 }
 
 void Scene::update(sf::Time gameTime) { 
