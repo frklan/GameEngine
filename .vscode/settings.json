@@ -67,6 +67,8 @@
     "vector": "cpp",
     "*.tcc": "cpp",
     "deque": "cpp",
-    "stack": "cpp"
+    "stack": "cpp",
+    "list": "cpp",
+    "typeindex": "cpp"
   }
 }

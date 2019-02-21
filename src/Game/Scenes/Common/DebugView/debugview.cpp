@@ -15,20 +15,20 @@
 Debugview::Debugview(const Scene& scene, uint8_t zOrder) : GameObject(scene, zOrder) {
   std::clog << "debugView created!\n";
   this->debugText.setPosition(10, 10);
-  this->debugText.setFont(getScene().getGameEngine().getFontResource("src/Game/Resources/pixel_operator/PixelOperator8.ttf"));
+  this->debugText.setFont(getScene().getGameEngine().getFontResource("src/Game/Resources/undefined-medium.ttf"));
   this->debugText.setFillColor(sf::Color::White);
-  this->debugText.setCharacterSize(15);
-  this->debugText.setLineSpacing(1.5);
+  this->debugText.setCharacterSize(20);
+  this->debugText.setLineSpacing(1);
   this->debugText.setString("<debug text goes here>");
 
   std::stringstream info;
   auto glInfo = scene.getGameEngine().getGlInfo();
   info << glInfo.glVendor << " " << glInfo.glRenderer << '\n'
        << glInfo.glVersion << " / " << glInfo.glShaderVersion;
-  this->gpuInfo.setFont(getScene().getGameEngine().getFontResource("src/Game/Resources/pixel_operator/PixelOperator8.ttf"));
+  this->gpuInfo.setFont(getScene().getGameEngine().getFontResource("src/Game/Resources/undefined-medium.ttf"));
   this->gpuInfo.setFillColor(sf::Color::White);
-  this->gpuInfo.setCharacterSize(15);
-  this->gpuInfo.setLineSpacing(1.5);
+  this->gpuInfo.setCharacterSize(20);
+  this->gpuInfo.setLineSpacing(1);
   this->debugText.setPosition(10, 10);
   this->gpuInfo.setString(info.str());
 
