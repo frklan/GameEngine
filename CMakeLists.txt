@@ -22,6 +22,11 @@ set(SOURCES
     src/Game/Scenes/Intro/introscene.cpp
     src/Game/Scenes/Intro/sincurve.cpp
     src/Game/main.cpp
+    
+    src/Game/Scenes/Test/player.cpp
+    src/Game/Scenes/Test/gui1.cpp
+    src/Game/Scenes/Test/testscene.cpp
+    
     src/GameEngine/GameEngine.cpp
     src/GameEngine/Scene.cpp
     src/lib/imgui/imgui.cpp
@@ -31,7 +36,7 @@ set(SOURCES
     src/lib/imgui-sfml/imgui-SFML.cpp
 )
 
-include_directories(AFTER src/lib src/lib/imgui src/GameEngine ${OPENGL_INCLUDE_DIR})
+include_directories(AFTER src/lib src/lib/imgui-sfml src/lib/imgui src/lib/eventbus/src/eventbus/ src/GameEngine ${OPENGL_INCLUDE_DIR})
 
 #set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 set(CMAKE_CXX_FLAGS "-Wall")

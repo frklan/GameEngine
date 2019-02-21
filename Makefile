@@ -3,6 +3,7 @@ src = $(wildcard src/Game/*.cpp) \
 	$(wildcard src/GameEngine/*cpp) \
 	$(wildcard src/Game/Scenes/Common/DebugView/*cpp) \
 	$(wildcard src/Game/Scenes/Game/*cpp) \
+	$(wildcard src/Game/Scenes/Test/*cpp) \
 	$(wildcard src/Game/Scenes/Intro/*cpp) \
 	$(wildcard src/lib/imgui/*.cpp) \
 	$(wildcard src/lib/imgui-sfml/*.cpp)

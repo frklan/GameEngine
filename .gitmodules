@@ -4,3 +4,6 @@
 [submodule "src/lib/imgui-sfml"]
 	path = src/lib/imgui-sfml
 	url = git@github.com:frklan/imgui-sfml.git
+[submodule "src/lib/eventbus"]
+	path = src/lib/eventbus
+	url = git@github.com:frklan/eventbus.git
