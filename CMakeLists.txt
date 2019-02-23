@@ -34,7 +34,9 @@ set(SOURCES
 include_directories(AFTER src/lib src/lib/imgui-sfml src/lib/imgui src/lib/eventbus/src/eventbus/ src/GameEngine ${OPENGL_INCLUDE_DIR})
 
 #set(CMAKE_CXX_FLAGS "-Wall -Wextra")
-set(CMAKE_CXX_FLAGS "-Wall")
+set(CMAKE_CXX_FLAGS "-Weverything -Wno-weak-vtables -Wno-padded -Wno-conversion -Wno-zero-as-null-pointer-constant \
+    -Wno-old-style-cast -Wno-double-promotion -Wno-global-constructors -Wno-switch-enum -Wno-cast-qual -Wno-shadow \
+    -Wno-cast-qual -Wno-c++98-compat -Wno-c++98-compat-pedantic")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 

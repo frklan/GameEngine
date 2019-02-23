@@ -40,7 +40,7 @@ rng(std::time(nullptr))
   gameSpeed.restart();
 }
 
-void GameOfLife::onUpdate(sf::Time gameTime) {
+void GameOfLife::onUpdate(sf::Time) {
 
   if(gameSpeed.getElapsedTime().asSeconds() > 1.f || generation == 0) {  
     gameSpeed.restart();
@@ -86,12 +86,12 @@ void GameOfLife::updateCellVertex(uint16_t x, uint16_t y, CellState& cell) {
   vertexs[i * 4 + 3] = sf::Vertex(bottomLeft, cellColor);
 }
 
-void GameOfLife::onRender(sf::RenderTarget& target, sf::Time gameTime) {
+void GameOfLife::onRender(sf::RenderTarget& target, sf::Time) {
   target.draw(vertexs.data(), vertexs.size(), sf::PrimitiveType::Quads);
 }
 
 
-const int GameOfLife::getRandom(int min, int max) {
+int GameOfLife::getRandom(int min, int max) {
   std::uniform_int_distribution<int> dist(min, max);
   return dist(rng);
 }
@@ -100,7 +100,7 @@ const int GameOfLife::getRandom(int min, int max) {
 //  1 2 3
 //  4 x 5   or   x 5
 //  6 7 8        7 8
-const uint32_t GameOfLife::getAliveNeighbors(uint16_t x, uint16_t y) const noexcept {
+uint32_t GameOfLife::getAliveNeighbors(uint16_t x, uint16_t y) const noexcept {
   uint32_t alive = 0;
 
   // 1
@@ -123,7 +123,7 @@ const uint32_t GameOfLife::getAliveNeighbors(uint16_t x, uint16_t y) const noexc
   return alive;
 }
 
-const uint32_t GameOfLife::rowAndColToIndex(uint16_t x, uint16_t y) const noexcept {
+uint32_t GameOfLife::rowAndColToIndex(uint16_t x, uint16_t y) const noexcept {
   return y * GameOfLife::WIDTH + x;
 }
 
@@ -144,7 +144,7 @@ void GameOfLife::forEachCell(std::function<void(uint16_t, uint16_t)> f) noexcept
 
 void GameOfLife::generateRandomCellStructure() { 
   forEachCell([&](uint16_t x, uint16_t y) {
-    int i = rowAndColToIndex(x, y);
+    auto i = rowAndColToIndex(x, y);
     auto rand = getRandom(0, 1);
     if(rand < 1) {
       cells[i] = CellState::off;

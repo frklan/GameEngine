@@ -17,7 +17,7 @@
 
 #include "sincurve.h"
 
-SinCurve::SinCurve(const Scene& scene, uint8_t zOrder, uint16_t xOffset, float yOffset) : 
+SinCurve::SinCurve(Scene& scene, uint8_t zOrder, uint16_t xOffset, float yOffset) : 
 GameObject(scene, zOrder),
 curveOffsetX(xOffset),
 curveOffsetY(yOffset),
@@ -30,7 +30,7 @@ windowSize(getScene().getGameEngine().getWindowSize())
 void SinCurve::onUpdate(const sf::Time gameTime) {
   auto f = sin(gameTime.asSeconds() / float(curveOffsetX));
 
-  for(auto i = 0; i < curve.size(); i++) {
+  for(size_t i = 0; i < curve.size(); i++) {
     auto p = curve[i].position;
        
     float dT = gameTime.asSeconds() + (i  / float(curve.size() / (6 / curveOffsetY) )) + f;
@@ -43,7 +43,7 @@ void SinCurve::onUpdate(const sf::Time gameTime) {
   }
 }
 
-void SinCurve::onRender(sf::RenderTarget& target, sf::Time gameTime) {  
+void SinCurve::onRender(sf::RenderTarget& target, sf::Time) {  
   target.draw(curve.data(), curve.size(), sf::PrimitiveType::LineStrip);
 }
 
@@ -55,11 +55,12 @@ void SinCurve::onEvent(const sf::Event& e) {
 }
 
 void SinCurve::createCurve() {
-  for(auto i = 0; i < curve.size(); i++){
+  for(size_t i = 0; i < curve.size(); i++){
     curve[i] = sf::Vertex{{float((float(windowSize.x) / (float(curve.size()) - 1.f) * i)), 100}, sf::Color::Blue};    
   }
 }
 
+// TODO: fix number formats..
 sf::Color SinCurve::hsvToRgb(long long hue, float sat, float val) {
   hue %= 360;
   while(hue<0) hue += 360;
@@ -70,7 +71,7 @@ sf::Color SinCurve::hsvToRgb(long long hue, float sat, float val) {
   if(val<0.f) val = 0.f;
   if(val>1.f) val = 1.f;
 
-  int h = hue/60;
+  int h = int(hue/60);
   float f = float(hue)/60-h;
   float p = val*(1.f-sat);
   float q = val*(1.f-sat*f);
@@ -80,11 +81,11 @@ sf::Color SinCurve::hsvToRgb(long long hue, float sat, float val) {
   {
     default:
     case 0:
-    case 6: return sf::Color(val*255, t*255, p*255);
-    case 1: return sf::Color(q*255, val*255, p*255);
-    case 2: return sf::Color(p*255, val*255, t*255);
-    case 3: return sf::Color(p*255, q*255, val*255);
-    case 4: return sf::Color(t*255, p*255, val*255);
-    case 5: return sf::Color(val*255, p*255, q*255);
+    case 6: return sf::Color(uint8_t(val*255), uint8_t(t*255), uint8_t(p*255));
+    case 1: return sf::Color(uint8_t(q*255), uint8_t(val*255), uint8_t(p*255));
+    case 2: return sf::Color(uint8_t(p*255), uint8_t(val*255), uint8_t(t*255));
+    case 3: return sf::Color(uint8_t(p*255), uint8_t(q*255), uint8_t(val*255));
+    case 4: return sf::Color(uint8_t(t*255), uint8_t(p*255), uint8_t(val*255));
+    case 5: return sf::Color(uint8_t(val*255), uint8_t(p*255), uint8_t(q*255));
   }
 }

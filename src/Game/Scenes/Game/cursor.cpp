@@ -37,10 +37,7 @@ Cursor::~Cursor() {
   getScene().getGameEngine().getWindow().setMouseCursorVisible(true);
 }
 
-void Cursor::onUpdate(sf::Time gameTime) {
-}
-
-void Cursor::onRender(sf::RenderTarget& target, sf::Time gameTime) {
+void Cursor::onRender(sf::RenderTarget& target, sf::Time) {
   if(isEnabled) {
     target.draw(cursor.data(), cursor.size(), sf::PrimitiveType::Quads);
   }

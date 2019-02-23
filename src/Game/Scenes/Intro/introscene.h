@@ -28,7 +28,8 @@ class Intro : public Scene {
   public:
     Intro() = delete;
     Intro(GameEngine& engine);
-    ~Intro();
+    
+    virtual ~Intro() override;
 
     virtual bool onActivate() override;
     virtual bool onDeactivate() override;

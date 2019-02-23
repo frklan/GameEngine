@@ -21,21 +21,21 @@ class Scene {
     virtual void update(sf::Time gameTime) final;
     virtual void render(sf::RenderTarget& w, sf::Time gameTime) final;
     
-    virtual bool onActivate() { return false; };
-    virtual bool onDeactivate() { return false; };
-    virtual bool onEvent(sf::Event& e) { return false; };
-    virtual bool onRender(sf::RenderTarget& w, sf::Time gameTime) { return false; };
-    virtual bool onUpdate(sf::Time gameTime) { return false; };
+    virtual bool onActivate() { return false; }
+    virtual bool onDeactivate() { return false; }
+    virtual bool onEvent(sf::Event&) { return false; }
+    virtual bool onRender(sf::RenderTarget&, sf::Time) { return false; }
+    virtual bool onUpdate(sf::Time) { return false; }
     
 
     GameObject* addGameObject(std::unique_ptr<GameObject> gameObject);
     template<typename T> std::vector<T*> getGameObjects() const;
     bool deleteGameObject(GameObject*);
     
-    const int getNumOfEntities() const;
+    int getNumOfEntities() const;
     GameEngine& getGameEngine() const;
 
-    eventbus::EventBus& getEventBus() { return eventbus; };
+    eventbus::EventBus& getEventBus() { return eventbus; }
 
   protected:
     GameEngine& gameEngine;

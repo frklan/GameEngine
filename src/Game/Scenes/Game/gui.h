@@ -26,7 +26,7 @@ namespace gamescene {
       Gui() = delete;
       Gui(Scene& scene, uint8_t zOrder);
       
-      virtual ~Gui() = default;
+      virtual ~Gui() override = default;
       
       virtual void onEvent(const sf::Event& e) override;
       virtual void onRender(sf::RenderTarget& target, sf::Time gameTime) override;

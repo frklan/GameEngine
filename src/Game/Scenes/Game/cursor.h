@@ -24,12 +24,11 @@ class Cursor : public GameObject {
   public:
     Cursor() = delete;
     Cursor(Scene& scene, uint8_t zOrder);
-    
-    virtual ~Cursor();
+
+    virtual ~Cursor() override;
     
     virtual void onEvent(const sf::Event& e) override;  
     virtual void onRender(sf::RenderTarget& target, sf::Time gameTime) override;
-    virtual void onUpdate(const sf::Time gameTime) override;
 
     void onGuiEvent(game::GuiEvent& e);
     void onWindowResizeEvent(game::WindowResizeEvent& e);
@@ -42,4 +41,3 @@ class Cursor : public GameObject {
 
     bool isEnabled = true;
 };
-

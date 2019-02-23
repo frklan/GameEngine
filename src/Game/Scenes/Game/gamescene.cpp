@@ -48,7 +48,7 @@ bool GameScene::onActivate() {
   gameEngine.setFramerateLimit(120);
     
   ImGui::SFML::Init(getGameEngine().getWindow());
-  ImGui::GetIO().IniFilename = NULL;
+  ImGui::GetIO().IniFilename = nullptr;
 
   //imFont = ImGui::GetIO().Fonts->AddFontFromFileTTF("src/Game/Resources/undefined-medium.ttf", 16);
   //ImGui::SFML::UpdateFontTexture();

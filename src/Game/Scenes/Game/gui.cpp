@@ -26,10 +26,10 @@
 #include "gui.h"
 
 namespace gamescene {
-  Gui::Gui(Scene& scene, uint8_t zOrder) : 
-  GameObject(scene),
-  scene(scene),
-  window(scene.getGameEngine().getWindow())
+  Gui::Gui(Scene& gameScene, uint8_t zOrder) : 
+  GameObject(gameScene, zOrder),
+  scene(gameScene),
+  window(gameScene.getGameEngine().getWindow())
   { 
     text.setFillColor(sf::Color::Cyan);
     text.setPosition({1000, 500});
@@ -38,7 +38,7 @@ namespace gamescene {
     text.setString("GUI Goes here.");
 
     ImGui::SFML::Init(window);
-    ImGui::GetIO().IniFilename = NULL;
+    ImGui::GetIO().IniFilename = nullptr;
 
     scene.getEventBus().subscribe(this, &Gui::onGuiEvent);
   }
@@ -50,7 +50,7 @@ namespace gamescene {
     }
   }
 
-  void Gui::onRender(sf::RenderTarget& target, sf::Time gameTime) {
+  void Gui::onRender(sf::RenderTarget&, sf::Time gameTime) {
     if(isEnabled) {
       ImGui::SFML::Update(window, gameTime);
 

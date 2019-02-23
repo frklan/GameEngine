@@ -25,7 +25,7 @@ class Grid : public GameObject {
     Grid() = delete;
     Grid(Scene& scene, uint8_t zOrder);
     
-    virtual ~Grid() = default;
+    virtual ~Grid() override = default;
      
     virtual void onRender(sf::RenderTarget& target, sf::Time gameTime) override;
 
@@ -40,4 +40,3 @@ class Grid : public GameObject {
     sf::Vector2u windowSize; 
     
 };
-

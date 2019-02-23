@@ -23,13 +23,13 @@
 
 class GameScene;
 
-Gui::Gui(Scene& scene, uint8_t zOrder) : 
-GameObject(scene, zOrder),
-scene(scene) 
+Gui::Gui(Scene& gameScene, uint8_t zOrder) : 
+GameObject(gameScene, zOrder),
+scene(gameScene) 
 {
 };
 
-void Gui::onRender(sf::RenderTarget& target, sf::Time gameTime) {
+void Gui::onRender(sf::RenderTarget&, sf::Time gameTime) {
   auto& window{getScene().getGameEngine().getWindow()};
 
   ImGui::SFML::Update(window, gameTime);

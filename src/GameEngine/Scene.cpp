@@ -73,6 +73,6 @@ GameEngine& Scene::getGameEngine() const  {
   return gameEngine;
 }
 
-const int Scene::getNumOfEntities() const {
+int Scene::getNumOfEntities() const {
   return gameObjects.size();
 }

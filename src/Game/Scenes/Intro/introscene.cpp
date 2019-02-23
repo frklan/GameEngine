@@ -67,7 +67,7 @@ bool Intro::onActivate() {
 
   auto& window{getGameEngine().getWindow()};
   ImGui::SFML::Init(window);
-  ImGui::GetIO().IniFilename = NULL;
+  ImGui::GetIO().IniFilename = nullptr;
 
   imFont = ImGui::GetIO().Fonts->AddFontFromFileTTF("src/Game/Resources/undefined-medium.ttf", 16);
   ImGui::SFML::UpdateFontTexture();
@@ -84,12 +84,12 @@ ImFont* Intro::getImFont() const {
   return imFont;
 }
 
-void Intro::onStartGameEvent(StartGameEvent& e) {
+void Intro::onStartGameEvent(StartGameEvent&) {
     gameEngine.addScene("game", std::make_unique<GameScene>(gameEngine));
     gameEngine.switchScene("game");
 }
 
-void Intro::onQuitEvent(QuitEvent& e) {
+void Intro::onQuitEvent(QuitEvent&) {
   std::clog << "QUIT!\n";
   gameEngine.getWindow().close();
 }

@@ -145,16 +145,16 @@ void GameEngine::setFramerateLimit(uint8_t fpsLimit) {
   gameWindow.setFramerateLimit(fpsLimit);
 }
 
-const float GameEngine::getFps() const { 
+float GameEngine::getFps() const { 
   return this->fps;
 };
 
-const float GameEngine::getTps() const { 
+float GameEngine::getTps() const { 
   return this->currentTPS; 
 };
 
-const void GameEngine::setTps(float tps) {
-  this->tps = tps;
+void GameEngine::setTps(float newTps) {
+  this->tps = newTps;
 };
 
 const std::chrono::milliseconds GameEngine::getFrameLag() const {
@@ -185,5 +185,3 @@ const std::vector<sf::VideoMode>& GameEngine::getFullscreenVideoModes() {
 const sf::VideoMode GameEngine::getWindowedVideoMode() {
   return sf::VideoMode::getDesktopMode();
 }
-
-

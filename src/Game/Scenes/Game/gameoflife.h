@@ -33,19 +33,19 @@ class GameOfLife : public GameObject {
     GameOfLife() = delete;
     GameOfLife(Scene& scene, uint8_t zOrder);
     
-    virtual ~GameOfLife() = default;
+    virtual ~GameOfLife() override = default;
      
     virtual void onRender(sf::RenderTarget& target, sf::Time gameTime) override;
     virtual void onUpdate(const sf::Time gameTime) override;
 
-    virtual const uint8_t getCellSize() const noexcept {return GameOfLife::CELLSIZE; }
+    virtual uint8_t getCellSize() const noexcept {return GameOfLife::CELLSIZE; }
     virtual const sf::Vector2u getGameboardSize() const noexcept {return sf::Vector2u{GameOfLife::WIDTH, GameOfLife::HEGHT}; }
-    virtual const uint32_t rowAndColToIndex(uint16_t x, uint16_t y) const noexcept;
+    virtual uint32_t rowAndColToIndex(uint16_t x, uint16_t y) const noexcept;
     virtual void forEachCell(std::function<void(uint16_t, uint16_t)> f) noexcept;
     virtual const std::pair<uint16_t, uint16_t> getCellCount() const noexcept;
     virtual void flipCell(sf::Vector2u);
     virtual void setCell(sf::Vector2u, CellState);
-    virtual void  killAllCells() { cells.fill(CellState::off); };
+    virtual void  killAllCells() { cells.fill(CellState::off); }
 
     void onGamePauseEvent(game::GamePauseEvent& e);
     void onGameClearEvent(game::GameClearEvent& e);
@@ -67,9 +67,8 @@ class GameOfLife : public GameObject {
     std::mt19937 rng;
     sf::Clock gameSpeed;
     
-    const int getRandom(int min, int max);
-    const uint32_t getAliveNeighbors(uint16_t x, uint16_t y) const noexcept;
+    int getRandom(int min, int max);
+    uint32_t getAliveNeighbors(uint16_t x, uint16_t y) const noexcept;
     void generateRandomCellStructure();
     void updateCellVertex(uint16_t x, uint16_t y, CellState& cell);
 };
-

@@ -36,7 +36,8 @@ class GameScene : public Scene {
   public:
     GameScene() = delete;
     GameScene(GameEngine& engine);
-    ~GameScene() = default;
+    
+    virtual ~GameScene() override = default;
 
     virtual bool onActivate() override;
     virtual bool onEvent(sf::Event& e) override;

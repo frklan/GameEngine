@@ -34,7 +34,7 @@ windowSize(getScene().getGameEngine().getWindowSize())
   generateGrid();
 }
 
-void Grid::onRender(sf::RenderTarget& target, sf::Time gameTime) {
+void Grid::onRender(sf::RenderTarget& target, sf::Time) {
   target.draw(grid.data(), grid.size(), sf::PrimitiveType::Lines);
 }
 

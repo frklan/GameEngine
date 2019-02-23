@@ -19,9 +19,9 @@
 class BackgroundQuad : public GameObject {
   public:
     BackgroundQuad() = delete;
-    BackgroundQuad(const Scene& scene, uint8_t zOrder);
+    BackgroundQuad(Scene& scene, uint8_t zOrder);
     
-    virtual ~BackgroundQuad() = default;
+    virtual ~BackgroundQuad() override = default;
     
     virtual void onEvent(const sf::Event& e) override;  
     virtual void onRender(sf::RenderTarget& target, sf::Time gameTime) override;

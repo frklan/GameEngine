@@ -17,17 +17,17 @@ class Scene;
 class GameObject{
   public:
     GameObject() = delete;
-    GameObject(const Scene& scene, uint8_t zOrder = 0) : zOrder(zOrder), scene(scene) {};
+    GameObject(Scene& scene, uint8_t zOrder = 0) : gameObjecZOrder(zOrder), gameScene(scene) {}
     virtual ~GameObject() = default;
 
-    virtual uint8_t getZOrder() const final { return zOrder; };
-    virtual const Scene& getScene() const final { return scene; };
+    virtual uint8_t getZOrder() const final { return gameObjecZOrder; }
+    virtual const Scene& getScene() const final { return gameScene; }
     
-    virtual void onEvent(const sf::Event& e) {};  
-    virtual void onRender(sf::RenderTarget& target, sf::Time gameTime) {};
-    virtual void onUpdate(const sf::Time gameTime) {};
+    virtual void onEvent(const sf::Event& /* e */) {}
+    virtual void onRender(sf::RenderTarget& /* target */, sf::Time /* gameTime */) {}
+    virtual void onUpdate(const sf::Time /* gameTime */) {}
 
   private:
-    uint8_t zOrder = 0;
-    const Scene& scene;   
+    uint8_t gameObjecZOrder = 0;
+    Scene& gameScene;   
 };

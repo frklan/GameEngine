@@ -18,9 +18,9 @@
 class Debugview : public GameObject {
   public:
     Debugview() = delete;
-    Debugview(const Scene& scene, uint8_t zOrder);
+    Debugview(Scene& scene, uint8_t zOrder);
     
-    virtual ~Debugview() = default;
+    virtual ~Debugview() override = default;
     
     virtual void onEvent(const sf::Event& e) override;  
     virtual void onRender(sf::RenderTarget& target, sf::Time gameTime) override;

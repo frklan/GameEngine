@@ -22,7 +22,7 @@
 #include "gameoflife.h"
 #include "statusdisplay.h"
 
-StatusDisplay::StatusDisplay(Scene& scene, uint8_t zOrder) : GameObject(scene) { 
+StatusDisplay::StatusDisplay(Scene& scene, uint8_t zOrder) : GameObject(scene, zOrder) { 
   pauseText.setPosition(10, 10);
   pauseText.setFont(getScene().getGameEngine().getFontResource("src/Game/Resources/pixel_operator/PixelOperator8.ttf"));
   pauseText.setFillColor(sf::Color::Red);
@@ -46,7 +46,7 @@ void StatusDisplay::onUpdate(sf::Time gameTime) {
   }
 }
 
-void StatusDisplay::onRender(sf::RenderTarget& target, sf::Time gameTime) {
+void StatusDisplay::onRender(sf::RenderTarget& target, sf::Time) {
   if(isPaused) {
     target.draw(pauseText);
   }

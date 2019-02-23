@@ -12,7 +12,7 @@
 
 #include "debugview.h"
 
-Debugview::Debugview(const Scene& scene, uint8_t zOrder) : GameObject(scene, zOrder) {
+Debugview::Debugview(Scene& scene, uint8_t zOrder) : GameObject(scene, zOrder) {
   std::clog << "debugView created!\n";
   this->debugText.setPosition(10, 10);
   this->debugText.setFont(getScene().getGameEngine().getFontResource("src/Game/Resources/undefined-medium.ttf"));
@@ -53,7 +53,7 @@ void Debugview::onUpdate(const sf::Time gameTime) {
   }
 }
 
-void Debugview::onRender(sf::RenderTarget& target, sf::Time gameTime) {
+void Debugview::onRender(sf::RenderTarget& target, sf::Time) {
   if(showDebug) {
     target.draw(this->debugText);
     target.draw(this->gpuInfo);

@@ -19,9 +19,9 @@
 class SinCurve : public GameObject {
   public:
     SinCurve() = delete;
-    SinCurve(const Scene& scene, uint8_t zOrder, uint16_t xOffset = 0, float yOffset = 1.0);
+    SinCurve(Scene& scene, uint8_t zOrder, uint16_t xOffset = 0, float yOffset = 1.0);
     
-    virtual ~SinCurve() = default;
+    virtual ~SinCurve() override = default;
     
     virtual void onEvent(const sf::Event& e) override;  
     virtual void onRender(sf::RenderTarget& target, sf::Time gameTime) override;

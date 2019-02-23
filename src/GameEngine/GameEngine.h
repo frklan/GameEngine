@@ -45,9 +45,9 @@ class GameEngine final {
     void setVerticalSyncEnabled(bool enabled = true);
     void setFramerateLimit(std::uint8_t fpsLimit = 60);
 
-    const float getFps() const;
-    const float getTps() const;
-    const void setTps(float tps);
+    float getFps() const;
+    float getTps() const;
+    void setTps(float tps);
     const std::chrono::milliseconds getFrameLag() const;
 
     const sf::Vector2u getWindowSize() const;

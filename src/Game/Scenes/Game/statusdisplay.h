@@ -25,7 +25,7 @@ class StatusDisplay : public GameObject {
     StatusDisplay() = delete;
     StatusDisplay(Scene& scene, uint8_t zOrder);
     
-    virtual ~StatusDisplay() = default;
+    virtual ~StatusDisplay() override = default;
     
     virtual void onRender(sf::RenderTarget& target, sf::Time gameTime) override;
     virtual void onUpdate(const sf::Time gameTime) override;
@@ -37,4 +37,3 @@ class StatusDisplay : public GameObject {
     bool isPaused = false;
     sf::Clock blinkOn;
 };
-
