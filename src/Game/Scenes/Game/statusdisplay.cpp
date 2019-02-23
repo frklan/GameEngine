@@ -29,6 +29,7 @@ StatusDisplay::StatusDisplay(Scene& scene, uint8_t zOrder) : GameObject(scene) {
   pauseText.setCharacterSize(35);
   pauseText.setString("PAUSED");
 
+  scene.getEventBus().subscribe(this, &StatusDisplay::onGamePauseEvent);
 }
 
 void StatusDisplay::onUpdate(sf::Time gameTime) {
@@ -49,4 +50,8 @@ void StatusDisplay::onRender(sf::RenderTarget& target, sf::Time gameTime) {
   if(isPaused) {
     target.draw(pauseText);
   }
+}
+
+void StatusDisplay::onGamePauseEvent(game::GamePauseEvent&) {
+  isPaused = !isPaused;
 }

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <map>
 
+#include <EventBus.h>
+
 #include "GameEngine.h"
 #include "GameObject.h"
 
@@ -33,9 +35,15 @@ class Scene {
     const int getNumOfEntities() const;
     GameEngine& getGameEngine() const;
 
+    eventbus::EventBus& getEventBus() { return eventbus; };
+
   protected:
     GameEngine& gameEngine;
-    std::multimap<uint8_t, std::unique_ptr<GameObject>> gameObjects;    
+    std::multimap<uint8_t, std::unique_ptr<GameObject>> gameObjects;
+
+  private:
+    eventbus::EventBus eventbus;
+
 };
 
 template<typename T> 

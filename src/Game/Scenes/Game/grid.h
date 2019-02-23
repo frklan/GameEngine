@@ -23,12 +23,13 @@
 class Grid : public GameObject {
   public:
     Grid() = delete;
-    Grid(const Scene& scene, uint8_t zOrder);
+    Grid(Scene& scene, uint8_t zOrder);
     
     virtual ~Grid() = default;
-    
-    virtual void onEvent(const sf::Event& e) override;  
+     
     virtual void onRender(sf::RenderTarget& target, sf::Time gameTime) override;
+
+    void onWindowResizeEvent(game::WindowResizeEvent& e);
 
   private:
     void generateGrid();

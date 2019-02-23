@@ -22,26 +22,20 @@
 #include "gameoflife.h"
 #include "grid.h"
 
-Grid::Grid(const Scene& scene, uint8_t zOrder) : 
+Grid::Grid(Scene& scene, uint8_t zOrder) : 
 GameObject(scene, zOrder), 
 windowSize(getScene().getGameEngine().getWindowSize())
 { 
   assert(scene.getGameObjects<GameOfLife>().size() == 1);
   gameOfLife = getScene().getGameObjects<GameOfLife>()[0];
 
+  scene.getEventBus().subscribe(this, &Grid::onWindowResizeEvent);
+
   generateGrid();
 }
 
 void Grid::onRender(sf::RenderTarget& target, sf::Time gameTime) {
   target.draw(grid.data(), grid.size(), sf::PrimitiveType::Lines);
-}
-
-void Grid::onEvent(const sf::Event& e) {
-  if(e.type == sf::Event::EventType::Resized) {
-    windowSize.x = getScene().getGameEngine().getWindowSize().x;
-    windowSize.y = getScene().getGameEngine().getWindowSize().y;
-    generateGrid();
-  }
 }
 
 void Grid::generateGrid() {
@@ -72,4 +66,9 @@ void Grid::generateGrid() {
     grid.emplace_back(sf::Vertex{sf::Vector2f{0.f, float(y)}, gridColor});
     grid.emplace_back(sf::Vertex{sf::Vector2f{float(windowSize.x), float(y)}, gridColor});
   } 
+}
+
+void Grid::onWindowResizeEvent(game::WindowResizeEvent& e) {  
+  windowSize = e.windowSize;
+  generateGrid();
 }

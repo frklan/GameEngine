@@ -21,11 +21,13 @@
 
 #include "cursor.h"
 
-Cursor::Cursor(const Scene& scene, uint8_t zOrder) : 
+Cursor::Cursor(Scene& scene, uint8_t zOrder) : 
 GameObject(scene, zOrder), 
 windowSize(getScene().getGameEngine().getWindowSize())
 { 
-  getScene().getGameEngine().getWindow().setMouseCursorVisible(false);
+  scene.getGameEngine().getWindow().setMouseCursorVisible(false);
+  scene.getEventBus().subscribe(this, &Cursor::onGuiEvent);
+  scene.getEventBus().subscribe(this, &Cursor::onWindowResizeEvent);
 
   assert(scene.getGameObjects<GameOfLife>().size() == 1);
   gameOfLife = getScene().getGameObjects<GameOfLife>()[0];
@@ -39,16 +41,19 @@ void Cursor::onUpdate(sf::Time gameTime) {
 }
 
 void Cursor::onRender(sf::RenderTarget& target, sf::Time gameTime) {
-  target.draw(cursor.data(), cursor.size(), sf::PrimitiveType::Quads);
+  if(isEnabled) {
+    target.draw(cursor.data(), cursor.size(), sf::PrimitiveType::Quads);
+  }
 }
 
 void Cursor::onEvent(const sf::Event& e) {
   auto cellSize = gameOfLife->getCellSize();
 
-  if(e.type == sf::Event::EventType::Resized) {
-    windowSize.x = getScene().getGameEngine().getWindowSize().x;
-    windowSize.y = getScene().getGameEngine().getWindowSize().y;
-  } else if(e.type == sf::Event::EventType::MouseLeft) {
+  if(!isEnabled) {
+    return;
+  }
+
+  if(e.type == sf::Event::EventType::MouseLeft) {
     cursor.fill(sf::Vertex({-1, -1}, sf::Color::Transparent));
   } else if(e.type == sf::Event::EventType::MouseMoved) {
     
@@ -86,4 +91,13 @@ void Cursor::onEvent(const sf::Event& e) {
       gameOfLife->killAllCells();
     }
   }
+}
+
+void Cursor::onGuiEvent(game::GuiEvent&) {
+  isEnabled = !isEnabled;
+  getScene().getGameEngine().getWindow().setMouseCursorVisible(!isEnabled);
+}
+
+void Cursor::onWindowResizeEvent(game::WindowResizeEvent& e) {  
+  windowSize = e.windowSize;
 }

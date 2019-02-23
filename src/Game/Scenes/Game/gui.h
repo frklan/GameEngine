@@ -30,12 +30,14 @@ namespace gamescene {
       
       virtual void onEvent(const sf::Event& e) override;
       virtual void onRender(sf::RenderTarget& target, sf::Time gameTime) override;
-      virtual void onUpdate(const sf::Time gameTime) override;
+      
+      void onGuiEvent(game::GuiEvent& e);
 
     private:
       Scene& scene;
       sf::Text text;
       sf::RenderWindow& window;
-      
+      bool isEnabled = false;
+      sf::Vector2u windowSize;
   };
 }

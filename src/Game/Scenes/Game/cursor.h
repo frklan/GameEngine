@@ -23,7 +23,7 @@
 class Cursor : public GameObject {
   public:
     Cursor() = delete;
-    Cursor(const Scene& scene, uint8_t zOrder);
+    Cursor(Scene& scene, uint8_t zOrder);
     
     virtual ~Cursor();
     
@@ -31,10 +31,15 @@ class Cursor : public GameObject {
     virtual void onRender(sf::RenderTarget& target, sf::Time gameTime) override;
     virtual void onUpdate(const sf::Time gameTime) override;
 
+    void onGuiEvent(game::GuiEvent& e);
+    void onWindowResizeEvent(game::WindowResizeEvent& e);
+
   private:
     sf::Vector2u windowSize;
     std::array<sf::Vertex, 4> cursor;
     GameOfLife* gameOfLife = nullptr;
     sf::Color cursorColor{185, 118, 93, 255};
+
+    bool isEnabled = true;
 };
 

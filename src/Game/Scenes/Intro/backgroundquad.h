@@ -27,6 +27,7 @@ class BackgroundQuad : public GameObject {
     virtual void onRender(sf::RenderTarget& target, sf::Time gameTime) override;
     virtual void onUpdate(const sf::Time gameTime) override;
     
+    
 
   private:
     void createBackground();

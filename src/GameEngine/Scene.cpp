@@ -1,7 +1,9 @@
 #include "Scene.h"
 #include "GameEngine.h"
 
-Scene::Scene(GameEngine& engine) : gameEngine(engine){ 
+Scene::Scene(GameEngine& engine) : 
+gameEngine(engine)
+{ 
 }
 
 GameObject* Scene::addGameObject(std::unique_ptr<GameObject> gameObject) {

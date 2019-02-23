@@ -19,6 +19,7 @@
 #include <Scene.h>
 
 #include "gamescene.h"
+#include "events.h"
 
 struct GameState;
 class GameScene;
@@ -33,8 +34,7 @@ class GameOfLife : public GameObject {
     GameOfLife(Scene& scene, uint8_t zOrder);
     
     virtual ~GameOfLife() = default;
-    
-    virtual void onEvent(const sf::Event& e) override;  
+     
     virtual void onRender(sf::RenderTarget& target, sf::Time gameTime) override;
     virtual void onUpdate(const sf::Time gameTime) override;
 
@@ -47,6 +47,10 @@ class GameOfLife : public GameObject {
     virtual void setCell(sf::Vector2u, CellState);
     virtual void  killAllCells() { cells.fill(CellState::off); };
 
+    void onGamePauseEvent(game::GamePauseEvent& e);
+    void onGameClearEvent(game::GameClearEvent& e);
+    void onGameResetEvent(game::GameResetEvent& e);
+    void onWindowResizeEvent(game::WindowResizeEvent& e);
 
   private:
     static const uint16_t HEGHT = 216;

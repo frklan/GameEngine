@@ -16,6 +16,7 @@
 #include <Scene.h>
 
 #include "gameoflife.h"
+#include "events.h"
 
 class GameOfLife;
 
@@ -40,9 +41,9 @@ class GameScene : public Scene {
     virtual bool onActivate() override;
     virtual bool onEvent(sf::Event& e) override;
 
+    void onQuitEvent(game::QuitEvent& e);
+
   private:
 
   GameOfLife* gameOfLife = nullptr;
-  bool isPaused = false;
-  bool isGuiActive = false;
 };

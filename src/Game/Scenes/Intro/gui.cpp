@@ -9,6 +9,8 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/OpenGL.hpp>
 
+#include <EventBus.h>
+
 #include <GameEngine.h>
 #include <GameObject.h>
 #include <ResourceManager.h>
@@ -17,16 +19,15 @@
 #include "../Game/gamescene.h"
 #include "introscene.h"
 #include "gui.h"
+#include "events.h"
 
 class GameScene;
 
-Gui::Gui(const Scene& scene, uint8_t zOrder) : GameObject(scene, zOrder) {
+Gui::Gui(Scene& scene, uint8_t zOrder) : 
+GameObject(scene, zOrder),
+scene(scene) 
+{
 };
-
-
-void Gui::onUpdate(const sf::Time gameTime) {
-
-}
 
 void Gui::onRender(sf::RenderTarget& target, sf::Time gameTime) {
   auto& window{getScene().getGameEngine().getWindow()};
@@ -48,13 +49,13 @@ void Gui::onRender(sf::RenderTarget& target, sf::Time gameTime) {
     ImGui::PushFont(intro.getImFont());
 
     if (ImGui::Button("Start Game!", {175,55})) {
-      this->getScene().getGameEngine().addScene("game", std::make_unique<GameScene>(this->getScene().getGameEngine()));
-      this->getScene().getGameEngine().switchScene("game");
+      scene.getEventBus().publish(StartGameEvent{});
+
       return;
     }
 
     if (ImGui::Button("Quit", {175,55})) {
-      this->getScene().getGameEngine().getWindow().close();
+      scene.getEventBus().publish(QuitEvent{});
     }
 
     ImGui::PopFont();

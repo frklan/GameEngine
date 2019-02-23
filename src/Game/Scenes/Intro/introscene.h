@@ -14,10 +14,14 @@
 #include <imgui/imgui.h>
 #include <imgui-sfml/imgui-SFML.h>
 
+#include <EventBus.h>
+
 #include <GameEngine.h>
 #include <GameObject.h>
 #include <ResourceManager.h>
 #include <Scene.h>
+
+#include "events.h"
 
 
 class Intro : public Scene {
@@ -30,6 +34,9 @@ class Intro : public Scene {
     virtual bool onDeactivate() override;
 
     ImFont* getImFont() const;
+
+    void onStartGameEvent(StartGameEvent& e);
+    void onQuitEvent(QuitEvent& e);
 
   private:
     sf::Text text;

@@ -23,15 +23,14 @@
 class Gui : public GameObject {
   public:
     Gui() = delete;
-    Gui(const Scene& scene, uint8_t zOrder);
+    Gui(Scene& scene, uint8_t zOrder);
     
     virtual ~Gui() = default;
     
     virtual void onEvent(const sf::Event& e) override;  
     virtual void onRender(sf::RenderTarget& target, sf::Time gameTime) override;
-    virtual void onUpdate(const sf::Time gameTime) override;
     
-
   private:
+    Scene& scene;
     
 };

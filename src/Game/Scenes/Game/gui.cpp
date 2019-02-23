@@ -39,43 +39,59 @@ namespace gamescene {
 
     ImGui::SFML::Init(window);
     ImGui::GetIO().IniFilename = NULL;
+
+    scene.getEventBus().subscribe(this, &Gui::onGuiEvent);
   }
 
-  void Gui::onUpdate(sf::Time gameTime) {
-
-  }
 
   void Gui::onEvent(const sf::Event& e) {
-    ImGui::SFML::ProcessEvent(e);
+    if(isEnabled) {
+      ImGui::SFML::ProcessEvent(e);
+    }
   }
 
   void Gui::onRender(sf::RenderTarget& target, sf::Time gameTime) {
-    auto windowSize = scene.getGameEngine().getWindowSize();
-    
-    ImGui::SFML::Update(window, gameTime);
+    if(isEnabled) {
+      ImGui::SFML::Update(window, gameTime);
 
-    if(ImGui::Begin("Main menu", nullptr, ImGuiWindowFlags_None)) {
-    
-      auto winSize{window.getSize()};
-      ImVec2 dialogSize {250, 600};
-      ImGui::SetWindowSize(dialogSize);
-      ImGui::SetWindowPos(ImVec2(winSize.x / 2 - dialogSize.x / 2, winSize.y / 2 - dialogSize.y / 2), true);
-    
+      if(ImGui::Begin(" ", nullptr, 
+        ImGuiWindowFlags_NoMove | 
+        ImGuiWindowFlags_NoResize | 
+        ImGuiWindowFlags_NoCollapse)) {
+      
 
-      if (ImGui::Button("Pause", {175,55})) {
-        std::clog << "pause game\n";
+        auto winSize{window.getSize()};
+        ImVec2 dialogSize {191, 226};
+        ImGui::SetWindowSize(dialogSize);
+        ImGui::SetWindowPos(ImVec2(winSize.x - 10 - dialogSize.x, winSize.y / 2 - dialogSize.y / 2), ImGuiCond_Always );
+
+        if (ImGui::Button("Pause", {175,35})) {
+          scene.getEventBus().publish(game::GamePauseEvent{});
+        }
+
+        if (ImGui::Button("Clear", {175,35})) {
+          scene.getEventBus().publish(game::GameClearEvent{});
+        }
+
+        if (ImGui::Button("Randomize", {175,35})) {
+          scene.getEventBus().publish(game::GameResetEvent{});
+        }
+
+        if (ImGui::Button("Close GUI", {175,35})) {
+          scene.getEventBus().publish(game::GuiEvent{});
+        }
+
+        if (ImGui::Button("Quit", {175,35})) {
+          scene.getEventBus().publish(game::QuitEvent{});
+        }
       }
-
-      if (ImGui::Button("Close", {175,55})) {
-        scene.deleteGameObject(this);
-        return;
-      }
-
+      ImGui::End();
+      
+      ImGui::SFML::Render(window);
     }
-    ImGui::End();
-    
-    ImGui::SFML::Render(window);
-    
-    target.draw(text);
+  }
+
+  void Gui::onGuiEvent(game::GuiEvent&) {
+    isEnabled = !isEnabled;
   }
 }

@@ -22,11 +22,6 @@ set(SOURCES
     src/Game/Scenes/Intro/introscene.cpp
     src/Game/Scenes/Intro/sincurve.cpp
     src/Game/main.cpp
-    
-    src/Game/Scenes/Test/player.cpp
-    src/Game/Scenes/Test/gui1.cpp
-    src/Game/Scenes/Test/testscene.cpp
-    
     src/GameEngine/GameEngine.cpp
     src/GameEngine/Scene.cpp
     src/lib/imgui/imgui.cpp

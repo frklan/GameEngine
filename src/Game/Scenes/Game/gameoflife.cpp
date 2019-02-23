@@ -31,9 +31,13 @@ rng(std::time(nullptr))
   assert(GameOfLife::HEGHT > 3);
   assert(GameOfLife::WIDTH > 3);
 
+   scene.getEventBus().subscribe(this, &GameOfLife::onGamePauseEvent);
+   scene.getEventBus().subscribe(this, &GameOfLife::onGameClearEvent);
+   scene.getEventBus().subscribe(this, &GameOfLife::onGameResetEvent);
+   scene.getEventBus().subscribe(this, &GameOfLife::onWindowResizeEvent);
+
   generateRandomCellStructure();
   gameSpeed.restart();
-
 }
 
 void GameOfLife::onUpdate(sf::Time gameTime) {
@@ -84,13 +88,6 @@ void GameOfLife::updateCellVertex(uint16_t x, uint16_t y, CellState& cell) {
 
 void GameOfLife::onRender(sf::RenderTarget& target, sf::Time gameTime) {
   target.draw(vertexs.data(), vertexs.size(), sf::PrimitiveType::Quads);
-}
-
-void GameOfLife::onEvent(const sf::Event& e) {
-  if(e.type == sf::Event::EventType::Resized) {
-    windowSize.x = getScene().getGameEngine().getWindowSize().x;
-    windowSize.y = getScene().getGameEngine().getWindowSize().y;
-  } 
 }
 
 
@@ -172,4 +169,21 @@ void GameOfLife::setCell(sf::Vector2u cellCoord, CellState state) {
   auto i = rowAndColToIndex(cellCoord.x, cellCoord.y);
   cells[i] = state;
   updateCellVertex(cellCoord.x, cellCoord.y, cells[i]);
+}
+
+
+void GameOfLife::onGamePauseEvent(game::GamePauseEvent&) {
+  paused = !paused;
+}
+
+void GameOfLife::onGameClearEvent(game::GameClearEvent&) {
+  this->killAllCells();
+}
+
+void GameOfLife::onGameResetEvent(game::GameResetEvent&) {
+  this->generateRandomCellStructure();
+}
+
+void GameOfLife::onWindowResizeEvent(game::WindowResizeEvent& e) {  
+  windowSize = e.windowSize;
 }

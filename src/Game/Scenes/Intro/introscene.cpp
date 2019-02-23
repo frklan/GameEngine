@@ -19,6 +19,7 @@
 #include <Scene.h>
 
 #include "introscene.h"
+#include "events.h"
 #include "gui.h"
 #include "sincurve.h"
 #include "backgroundquad.h"
@@ -28,6 +29,10 @@
 
 Intro::Intro(GameEngine& engine) : Scene(engine) { 
   std::clog << "Intro scene created!\n"; 
+
+  getEventBus().subscribe(this, &Intro::onStartGameEvent);
+  getEventBus().subscribe(this, &Intro::onQuitEvent);
+  
 
   addGameObject(std::make_unique<Debugview>(*this, 0));
   addGameObject(std::make_unique<Gui>(*this, 10));
@@ -78,3 +83,14 @@ bool Intro::onDeactivate() {
 ImFont* Intro::getImFont() const {
   return imFont;
 }
+
+void Intro::onStartGameEvent(StartGameEvent& e) {
+    gameEngine.addScene("game", std::make_unique<GameScene>(gameEngine));
+    gameEngine.switchScene("game");
+}
+
+void Intro::onQuitEvent(QuitEvent& e) {
+  std::clog << "QUIT!\n";
+  gameEngine.getWindow().close();
+}
+
