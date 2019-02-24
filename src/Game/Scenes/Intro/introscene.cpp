@@ -85,7 +85,6 @@ ImFont* Intro::getImFont() const {
 }
 
 void Intro::onStartGameEvent(StartGameEvent&) {
-    gameEngine.addScene("game", std::make_unique<GameScene>(gameEngine));
     gameEngine.switchScene("game");
 }
 

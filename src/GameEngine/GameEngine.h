@@ -58,6 +58,8 @@ class GameEngine final {
     const sf::VideoMode getWindowedVideoMode();
 
   private:
+    void executSceneSwapp();
+    
     std::uint8_t tps  = 30;
     //const unsigned int GAME_WIDTH = 3960;
     //const unsigned int GAME_HEIGHT = 2160;
@@ -69,6 +71,7 @@ class GameEngine final {
     
     std::unordered_map <std::string, std::unique_ptr<Scene>> scenes;
     Scene* currentScene = nullptr;
+    Scene* nextScene = nullptr;
 
     sf::Clock gameClock;
     sf::Clock fpsClock;

@@ -31,17 +31,7 @@
 class GameOfLife;
 
 GameScene::GameScene(GameEngine& engine) : Scene(engine) {   
-
-  getEventBus().subscribe(this, &GameScene::onQuitEvent);
-
-  auto gol = this->addGameObject(std::make_unique<GameOfLife>(*this, 20));
-  gameOfLife = dynamic_cast<GameOfLife*>(gol);
-
-  this->addGameObject(std::make_unique<Debugview>(*this, 0));
-  this->addGameObject(std::make_unique<Grid>(*this, 10));
-  this->addGameObject(std::make_unique<Cursor>(*this, 5));
-  this->addGameObject(std::make_unique<StatusDisplay>(*this, 0));
-  this->addGameObject(std::make_unique<gamescene::Gui>(*this, 0));
+  
 }
 
 bool GameScene::onActivate() { 
@@ -53,9 +43,34 @@ bool GameScene::onActivate() {
   //imFont = ImGui::GetIO().Fonts->AddFontFromFileTTF("src/Game/Resources/undefined-medium.ttf", 16);
   //ImGui::SFML::UpdateFontTexture();
 
-  
+  auto gol = this->addGameObject(std::make_unique<GameOfLife>(*this, 20));
+  gameOfLife = dynamic_cast<GameOfLife*>(gol);
+
+  this->addGameObject(std::make_unique<Debugview>(*this, 0));
+  this->addGameObject(std::make_unique<Grid>(*this, 10));
+  this->addGameObject(std::make_unique<Cursor>(*this, 5));
+  this->addGameObject(std::make_unique<StatusDisplay>(*this, 0));
+  this->addGameObject(std::make_unique<gamescene::Gui>(*this, 0));
+
+  getEventBus().subscribe(this, &GameScene::onGameEndEvent);
+
   return true;
 }
+
+ bool GameScene::onDeactivate() {
+   ImGui::SFML::Shutdown();
+
+   auto gos = this->getGameObjects<GameObject>();
+   for(auto g : gos) {
+     this->deleteGameObject(g);
+   }
+   
+  getEventBus().reset();
+   
+  return true;
+
+   
+ }
 
 bool GameScene::onEvent(sf::Event& e) {
   
@@ -71,21 +86,8 @@ bool GameScene::onEvent(sf::Event& e) {
       //gameOfLife->killAllCells();
       getEventBus().publish(game::GameClearEvent{});
       return true;
-    } else if(e.key.code == sf::Keyboard::Key::G) {
-
-        getEventBus().publish(game::GuiEvent{});
-        // auto* gui = getGameObjects<gamescene::Gui>()[0];
-        // deleteGameObject(gui);
-
-        // addGameObject(std::make_unique<Cursor>(*this, 5));
-
-        // isGuiActive = true;
-        // addGameObject(std::make_unique<gamescene::Gui>(*this, 0));
-        
-        // auto* cursor = getGameObjects<Cursor>()[0];
-        // deleteGameObject(cursor);
-        
-      
+    } else if(e.key.code == sf::Keyboard::Key::Escape) {
+      getEventBus().publish(game::GuiEvent{});      
       return true;
     }
   }
@@ -94,7 +96,6 @@ bool GameScene::onEvent(sf::Event& e) {
   return false;
 }
 
-void GameScene::onQuitEvent(game::QuitEvent&) {
-  std::clog << "QUIT!\n";
-  gameEngine.getWindow().close();
+void GameScene::onGameEndEvent(game::GameEndEvent&) {
+    gameEngine.switchScene("intro");
 }

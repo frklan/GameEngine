@@ -40,9 +40,10 @@ class GameScene : public Scene {
     virtual ~GameScene() override = default;
 
     virtual bool onActivate() override;
+    virtual bool onDeactivate() override;
     virtual bool onEvent(sf::Event& e) override;
 
-    void onQuitEvent(game::QuitEvent& e);
+    void onGameEndEvent(game::GameEndEvent& e);
 
   private:
 

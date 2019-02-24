@@ -81,8 +81,8 @@ namespace gamescene {
           scene.getEventBus().publish(game::GuiEvent{});
         }
 
-        if (ImGui::Button("Quit", {175,35})) {
-          scene.getEventBus().publish(game::QuitEvent{});
+        if (ImGui::Button("End Game", {175,35})) {
+          scene.getEventBus().publish(game::GameEndEvent{});
         }
       }
       ImGui::End();

@@ -19,6 +19,10 @@ namespace game {
   
   };
 
+  struct GameEndEvent : public eventbus::Event {
+  
+  };
+
   struct QuitEvent : public eventbus::Event {
   
   };

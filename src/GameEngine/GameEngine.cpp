@@ -56,21 +56,28 @@ void GameEngine::addScene(std::string name, std::unique_ptr<Scene> scene) {
 
   if(currentScene == nullptr) {
     switchScene(name);
+    executSceneSwapp();
   }
 }
 
 void GameEngine::switchScene(std::string name) {
   auto s = scenes.find(name);
   if(s != scenes.end()) {
+    nextScene = s->second.get();
+  }
+}
+
+void GameEngine::executSceneSwapp() {
+  if(nextScene != nullptr) {
     if(currentScene != nullptr) {
       currentScene->onDeactivate();
     }
-    currentScene = s->second.get();
+    currentScene = nextScene;
+    nextScene = nullptr;
     currentScene->onActivate();
-  } else {
-    std::cerr << "could not switch to scene " << name << '\n';
   }
 }
+
 
 void GameEngine::unloadScene(std::string name) {
   auto toUnload = scenes.find(name);
@@ -121,6 +128,9 @@ int GameEngine::run() {
       currentScene->render(gameWindow, gameClock.getElapsedTime());
       
       gameWindow.display();
+
+      // exceute scene swapp (if requested.)
+      executSceneSwapp();
   }
   std::clog << "Game loop finished!" << '\n';
   return 0; 
