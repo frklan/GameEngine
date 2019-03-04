@@ -20,7 +20,7 @@ $ make
 $ ./ge
 ````
 
-Alternativley cmake can be used, with the added bonus of not litter build files all over the place:
+Alternativley cmake can be used, with the added bonus of not litter build files all over the place; it will also build an MacOS app bundle:
 
 ````bash
 $ git clone git@github.com:frklan/GameEngine.git --recurse-submodules 
@@ -30,8 +30,6 @@ $ cmake ..
 $ make
 $ ./ge
 ````
-
-You also need to manually copy (or symlink) src/Resources to the build directory.
 
 Use ````$ cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON ..```` to compile with debug symbols and verbose output.
 
