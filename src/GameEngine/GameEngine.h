@@ -39,6 +39,8 @@ class GameEngine final {
     int run();
 
     const sf::Font& getFontResource(const std::string& name);
+    std::string getFontResourceAboslutePath(const std::string name) const;
+
     const sf::Texture& getTextureResource(const std::string& name);
     const sf::Image& getImageResource(const std::string& name);
     

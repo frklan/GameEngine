@@ -8,6 +8,9 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 find_package(SFML REQUIRED audio graphics window system)
 find_package(OpenGL REQUIRED OpenGL)
 
+find_package(Boost 1.67 REQUIRED COMPONENTS system date_time filesystem iostreams)
+include_directories(${Boost_INCLUDE_DIRS})
+
 #Add files
 set(SOURCES 
     src/Game/Scenes/Common/DebugView/debugview.cpp
@@ -43,6 +46,8 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 #Define the executable
 add_executable(
     ${PROJECT_NAME} 
+    ${Boost_LIBRARY}
     ${SOURCES} 
 )
-target_link_libraries(${PROJECT_NAME} ${SFML_LIBRARIES} ${SFML_DEPENDENCIES} ${OPENGL_LIBRARIES})
+
+target_link_libraries(${PROJECT_NAME} ${SFML_LIBRARIES} ${SFML_DEPENDENCIES} ${OPENGL_LIBRARIES} ${Boost_LIBRARIES})

@@ -140,6 +140,10 @@ const sf::Font& GameEngine::getFontResource(const std::string& name) {
   return fontManager.get(name);
 }
 
+std::string GameEngine::getFontResourceAboslutePath(const std::string name) const {
+  return fontManager.getAbsoluteResourcePath(name);
+}
+
 const sf::Texture& GameEngine::getTextureResource(const std::string& name) {
   return textureManager.get(name);
 }

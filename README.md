@@ -4,11 +4,12 @@ An attemnt to make a game engine. Mostly for fun and to learn how a game engine 
 
 ## Compiling
 
-You'll need
+Currently it will only work on MacOS due to using some specific functions to get the exact path to the executable, anyhow you'll need the following to compile
 
 - A C++17 compatible clang++ compiler
 - SFML / OpenGL
 - ImGui / ImGui-SFML
+- boost::filesystem
 
 Run the following to clone, compile and run.
 
