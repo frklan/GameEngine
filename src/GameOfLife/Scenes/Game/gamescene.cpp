@@ -40,7 +40,7 @@ bool GameScene::onActivate() {
   ImGui::SFML::Init(getGameEngine().getWindow());
   ImGui::GetIO().IniFilename = nullptr;
 
-  //imFont = ImGui::GetIO().Fonts->AddFontFromFileTTF("src/Game/Resources/undefined-medium.ttf", 16);
+  //imFont = ImGui::GetIO().Fonts->AddFontFromFileTTF("src/GameOfLife/Resources/undefined-medium.ttf", 16);
   //ImGui::SFML::UpdateFontTexture();
 
   auto gol = this->addGameObject(std::make_unique<GameOfLife>(*this, 20));

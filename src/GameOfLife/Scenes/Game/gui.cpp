@@ -33,7 +33,7 @@ namespace gamescene {
   { 
     text.setFillColor(sf::Color::Cyan);
     text.setPosition({1000, 500});
-    text.setFont(scene.getGameEngine().getFontResource("src/Game/Resources/pixel_operator/PixelOperator8.ttf"));
+    text.setFont(scene.getGameEngine().getFontResource("Resources/pixel_operator/PixelOperator8.ttf"));
     text.setCharacterSize(35);
     text.setString("GUI Goes here.");
 

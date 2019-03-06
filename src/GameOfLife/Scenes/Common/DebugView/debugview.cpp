@@ -15,7 +15,7 @@
 Debugview::Debugview(Scene& scene, uint8_t zOrder) : GameObject(scene, zOrder) {
   std::clog << "debugView created!\n";
   this->debugText.setPosition(10, 10);
-  this->debugText.setFont(getScene().getGameEngine().getFontResource("src/Game/Resources/undefined-medium.ttf"));
+  this->debugText.setFont(getScene().getGameEngine().getFontResource("Resources/undefined-medium.ttf"));
   this->debugText.setFillColor(sf::Color::White);
   this->debugText.setCharacterSize(20);
   this->debugText.setLineSpacing(1);
@@ -25,7 +25,7 @@ Debugview::Debugview(Scene& scene, uint8_t zOrder) : GameObject(scene, zOrder) {
   auto glInfo = scene.getGameEngine().getGlInfo();
   info << glInfo.glVendor << " " << glInfo.glRenderer << '\n'
        << glInfo.glVersion << " / " << glInfo.glShaderVersion;
-  this->gpuInfo.setFont(getScene().getGameEngine().getFontResource("src/Game/Resources/undefined-medium.ttf"));
+  this->gpuInfo.setFont(getScene().getGameEngine().getFontResource("Resources/undefined-medium.ttf"));
   this->gpuInfo.setFillColor(sf::Color::White);
   this->gpuInfo.setCharacterSize(20);
   this->gpuInfo.setLineSpacing(1);

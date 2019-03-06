@@ -69,7 +69,7 @@ bool Intro::onActivate() {
   ImGui::SFML::Init(window);
   ImGui::GetIO().IniFilename = nullptr;
 
-  auto fontPath = getGameEngine().getFontResourceAboslutePath("src/Game/Resources/undefined-medium.ttf");
+  auto fontPath = getGameEngine().getFontResourceAboslutePath("Resources/undefined-medium.ttf");
   imFont = ImGui::GetIO().Fonts->AddFontFromFileTTF(fontPath.c_str(), 16);
   ImGui::SFML::UpdateFontTexture();
   return true;

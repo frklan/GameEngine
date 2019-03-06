@@ -31,7 +31,7 @@ timePerTick(sf::seconds(1.0f / TPS))
   gameView.setCenter(sf::Vector2f(winSize.x / 2, winSize.y / 2));
   gameWindow.setView(gameView);
 
-  auto icon = getImageResource("src/Game/Resources/logo.png");
+  auto icon = getImageResource("Resources/logo.png");
   gameWindow.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
   gameWindow.display();

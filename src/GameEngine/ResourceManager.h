@@ -92,5 +92,5 @@ std::string ResourceManager<T>::findResource(std::string resourceName) {
   }
 
   // we did not find the resoruce, throw
-  throw std::runtime_error("Resource not found");
+  throw std::runtime_error("Resource " + resourceName + " not found");
 }

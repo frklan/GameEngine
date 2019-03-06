@@ -19,4 +19,5 @@ target_link_libraries(${PROJECT_NAME}_app ${SFML_LIBRARIES} ${SFML_DEPENDENCIES}
 set_target_properties(${PROJECT_NAME}_app PROPERTIES LINKER_LANGUAGE CXX)
 
 
-file(COPY ${CMAKE_SOURCE_DIR}/src/Game/Resources  DESTINATION ${CMAKE_BINARY_DIR}/${PROJECT_NAME}_app.app/Contents/src/Game/ )
+file(COPY ${CMAKE_SOURCE_DIR}/src/GameOfLife/Resources  DESTINATION ${CMAKE_BINARY_DIR}/${PROJECT_NAME}_app.app/Contents/ )
+file(COPY ${CMAKE_SOURCE_DIR}/src/GameOfLife/Resources  DESTINATION ${CMAKE_BINARY_DIR}/ )

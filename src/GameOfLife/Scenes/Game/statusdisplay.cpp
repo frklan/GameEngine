@@ -24,7 +24,7 @@
 
 StatusDisplay::StatusDisplay(Scene& scene, uint8_t zOrder) : GameObject(scene, zOrder) { 
   pauseText.setPosition(10, 10);
-  pauseText.setFont(getScene().getGameEngine().getFontResource("src/Game/Resources/pixel_operator/PixelOperator8.ttf"));
+  pauseText.setFont(getScene().getGameEngine().getFontResource("Resources/pixel_operator/PixelOperator8.ttf"));
   pauseText.setFillColor(sf::Color::Red);
   pauseText.setCharacterSize(35);
   pauseText.setString("PAUSED");
