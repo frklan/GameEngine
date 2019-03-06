@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(ge)
+gitproject(GameEngine)
 set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_EXTENSIONS OFF)
 
@@ -19,21 +19,10 @@ set(CMAKE_CXX_FLAGS "-Weverything -Wno-weak-vtables -Wno-padded -Wno-conversion 
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
-# main.cpp is our only file not included in a lib 
-set(SOURCES src/Game/main.cpp)
-
 include_directories(AFTER src/lib src/lib/imgui-sfml src/lib/imgui src/lib/eventbus/src/eventbus/ src/GameEngine ${OPENGL_INCLUDE_DIR} ${SFML_INCLUDE_DIR})
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
 add_subdirectory(src/GameEngine)
-add_subdirectory(src/Game)
 add_subdirectory(src/lib)
-
-#Define the executables
-add_executable(${PROJECT_NAME} ${SOURCES})
-target_link_libraries(${PROJECT_NAME} ${SFML_LIBRARIES} ${SFML_DEPENDENCIES} ${OPENGL_LIBRARIES} ${Boost_LIBRARIES} gameengine_lib gameoflife_lib thirdparty_lib)
-
-add_executable(${PROJECT_NAME}_app MACOSX_BUNDLE ${SOURCES})
-target_link_libraries(${PROJECT_NAME}_app ${SFML_LIBRARIES} ${SFML_DEPENDENCIES} ${OPENGL_LIBRARIES} ${Boost_LIBRARIES} gameengine_lib gameoflife_lib thirdparty_lib)
-set_target_properties(${PROJECT_NAME}_app PROPERTIES LINKER_LANGUAGE CXX)
-
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/Game/Resources  DESTINATION ${PROJECT_NAME}_app.app/Contents/src/Game/ )
+add_subdirectory(src/Game)
